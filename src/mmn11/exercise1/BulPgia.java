@@ -1,4 +1,4 @@
-package mmn11;
+package mmn11.exercise1;
 
 import java.util.Random;
 
