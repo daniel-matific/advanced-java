@@ -3,35 +3,55 @@ package mmn11;
 import java.util.Random;
 
 public class BulPgia {
-	private String numberToGuess;
+	private String[] numberToGuess;
 	private String guessHistory;
 	private int numberOfGuesses;
 	
 	public BulPgia() {
-		numberToGuess = "";
 		guessHistory = "";
 		numberOfGuesses = 0;
+		
 		Random randomGenerator = new Random();
 		Integer randomNumber;
-		while (numberToGuess.length() < 4) {
+		String numberBuilder = "";
+		while (numberBuilder.length() < 4) {
 			randomNumber = randomGenerator.nextInt(10);
-			if(isUnique(numberToGuess+randomNumber.toString())) {
-				numberToGuess += randomNumber.toString();
+			if(isUnique(numberBuilder+randomNumber.toString())) {
+				numberBuilder += randomNumber.toString();
 			}
 		}
-	}
-	
-	public String getNumberToGuess() {
-		return numberToGuess;
-	}
-	
-	public int getNumberOfGuesses() {
-		return numberOfGuesses;
+		numberToGuess = numberBuilder.split("|");
 	}
 	
 	public boolean guess(String number) {
-		
-		return true;
+		if (!isValid(number)) {
+			return false;
+		}
+		numberOfGuesses++; // I assume only valid guesses count
+		String[] splitNumber = number.split("|");
+		int bul = 0;
+		int pgia = 0;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				if (splitNumber[i].equals(numberToGuess[j])) {
+					if (i == j) {
+						bul++;
+					}
+					else {
+						pgia++;
+					}
+					break;
+				}
+			}
+		}
+		guessHistory += "Guess: " + number + " ---> " + bul + " bul and " + pgia + " pgia.\n";
+		System.out.println(guessHistory);
+		if (bul == 4) {
+			System.out.println("---> BUL PGIA <---");
+			System.out.println("Total number of guesses until success: " + numberOfGuesses);
+			return true;
+		}
+		return false;
 	}
 	
 	private boolean isValid(String number) {
@@ -44,7 +64,7 @@ public class BulPgia {
 			return false;
 		}
 		if(!isUnique(number)) {
-			System.out.println("The number you guess must contain unique digits, please re-enter a number with unique digits.");
+			System.out.println("The number you guess can't have repeating digits, please re-enter a number without repetitions.");
 			return false;
 		}
 		return true;
