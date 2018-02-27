@@ -16,7 +16,7 @@ public class BulPgia {
 		String numberBuilder = "";
 		while (numberBuilder.length() < 4) {
 			randomNumber = randomGenerator.nextInt(10);
-			if(isUnique(numberBuilder+randomNumber.toString())) {
+			if (isUnique(numberBuilder+randomNumber.toString())) {
 				numberBuilder += randomNumber.toString();
 			}
 		}
@@ -55,15 +55,15 @@ public class BulPgia {
 	}
 	
 	private boolean isValid(String number) {
-		if(!isFourDigits(number)) {
+		if (!isFourDigits(number)) {
 			System.out.println("The number you guess must be four digits, please re-enter a four digit number.");
 			return false;
 		}
-		if(!isDigitsOnly(number)) {
+		if (!isDigitsOnly(number)) {
 			System.out.println("The number you guess must contain digits only, please re-enter a digit only number.");
 			return false;
 		}
-		if(!isUnique(number)) {
+		if (!isUnique(number)) {
 			System.out.println("The number you guess can't have repeating digits, please re-enter a number without repetitions.");
 			return false;
 		}
@@ -72,7 +72,7 @@ public class BulPgia {
 	
 	private boolean isUnique(String number) {
 		boolean[] taken = new boolean[10];
-		for(int i = 0; i < number.length(); i++) {
+		for (int i = 0; i < number.length(); i++) {
 			int index = Character.getNumericValue(number.charAt(i));
 			
 			if (taken[index]) {
@@ -88,8 +88,8 @@ public class BulPgia {
 	}
 	
 	private boolean isDigitsOnly(String number) {
-		for(int i = 0; i < number.length(); i++) {
-			if(number.charAt(i) < 48 || number.charAt(i) > 57) {
+		for (int i = 0; i < number.length(); i++) {
+			if (number.charAt(i) < 48 || number.charAt(i) > 57) {
 				return false;
 			}
 		}

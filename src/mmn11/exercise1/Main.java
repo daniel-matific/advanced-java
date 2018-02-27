@@ -14,7 +14,7 @@ public class Main {
 			if (gameOver) {
 				System.out.println("Do you want to play another round? (y/n)");
 				String answer = scanner.nextLine();
-				if(answer.equals("y")) {
+				if (answer.equals("y")) {
 					bulPgia = new BulPgia();
 					gameOver = false;	
 				}
