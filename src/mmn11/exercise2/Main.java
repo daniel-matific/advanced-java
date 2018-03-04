@@ -10,7 +10,7 @@ public class Main {
 		final int TOP_CARD = 0, MIN_DECK_SIZE_FOR_PILE = 3;
 
 		while (!player1Deck.isDeckEmpty() && !player2Deck.isDeckEmpty()) {
-			Card cardOfPlayer1 = player1Deck.dealCard(), cardOfPlayer2 = player2Deck.dealCard();
+			Card cardOfPlayer1 = player1Deck.revealTopCard(), cardOfPlayer2 = player2Deck.revealTopCard();
 			System.out.println("Player 1 shows: " + cardOfPlayer1.toString() + " and Player 2 shows: " + cardOfPlayer2.toString() + "!");
 			if (cardOfPlayer1.getCardValue() > cardOfPlayer2.getCardValue()) {
 				System.out.println("Player 1 wins the round!");

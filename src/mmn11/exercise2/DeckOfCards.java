@@ -52,12 +52,7 @@ public class DeckOfCards {
 		deck.add(card);
 	}
 	
-	public Card dealCard() {
-		if (!deck.isEmpty()) {
-			return deck.get(TOP_CARD);
-		}
-		else {
-			return null;
-		}
+	public Card revealTopCard() {
+		return deck.get(TOP_CARD);
 	}
 }
