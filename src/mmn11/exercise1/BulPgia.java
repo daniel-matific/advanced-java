@@ -2,6 +2,8 @@ package mmn11.exercise1;
 
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 public class BulPgia {
 	private String[] numberToGuess;
 	private String guessHistory;
@@ -45,10 +47,9 @@ public class BulPgia {
 			}
 		}
 		guessHistory += "Guess: " + number + " ---> " + bul + " bul and " + pgia + " pgia.\n";
-		System.out.println(guessHistory);
+		JOptionPane.showMessageDialog(null, guessHistory);
 		if (bul == 4) {
-			System.out.println("---> BUL PGIA <---");
-			System.out.println("Total number of guesses until success: " + numberOfGuesses);
+			JOptionPane.showMessageDialog(null, "---> BUL PGIA <---\nTotal number of guesses until success: " + numberOfGuesses);
 			return true;
 		}
 		return false;
@@ -56,15 +57,15 @@ public class BulPgia {
 	
 	private boolean isValid(String number) {
 		if (!isFourDigits(number)) {
-			System.out.println("The number you guess must be four digits, please re-enter a four digit number.");
+			JOptionPane.showMessageDialog(null, "The number you guess must be four digits, please re-enter a four digit number.");
 			return false;
 		}
 		if (!isDigitsOnly(number)) {
-			System.out.println("The number you guess must contain digits only, please re-enter a digit only number.");
+			JOptionPane.showMessageDialog(null, "The number you guess must contain digits only, please re-enter a digit only number.");
 			return false;
 		}
 		if (!isUnique(number)) {
-			System.out.println("The number you guess can't have repeating digits, please re-enter a number without repetitions.");
+			JOptionPane.showMessageDialog(null, "The number you guess can't have repeating digits, please re-enter a number without repetitions.");
 			return false;
 		}
 		return true;
