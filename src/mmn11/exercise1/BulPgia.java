@@ -46,10 +46,10 @@ public class BulPgia {
 				}
 			}
 		}
-		guessHistory += "Guess: " + number + " ---> " + bul + " bul and " + pgia + " pgia.\n";
+		guessHistory += "Guess: " + number + " >>> " + bul + " bul and " + pgia + " pgia.\n";
 		JOptionPane.showMessageDialog(null, guessHistory);
 		if (bul == 4) {
-			JOptionPane.showMessageDialog(null, "---> BUL PGIA <---\nTotal number of guesses until success: " + numberOfGuesses);
+			JOptionPane.showMessageDialog(null, ">>> BUL PGIA <<<\nTotal number of guesses until success: " + numberOfGuesses);
 			return true;
 		}
 		return false;

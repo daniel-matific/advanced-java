@@ -19,7 +19,7 @@ public class DeckOfCards {
 			deck.add(count, new Card(faces[count % 13], suits[count / 13]));
 		}
 		
-		shuffle();
+		//shuffle();
 	}
 	
 	public void shuffle() {

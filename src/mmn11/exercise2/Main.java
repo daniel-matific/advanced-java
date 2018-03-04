@@ -2,18 +2,20 @@ package mmn11.exercise2;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class Main {
 
 	public static void main(String[] args) {
 		DeckOfCards player1Deck = new DeckOfCards(), player2Deck = new DeckOfCards();
 		ArrayList<Card> pile = new ArrayList<Card>();
-		final int TOP_CARD = 0, MIN_DECK_SIZE_FOR_PILE = 3;
+		final int TOP_CARD = 0;
 
 		while (!player1Deck.isDeckEmpty() && !player2Deck.isDeckEmpty()) {
 			Card cardOfPlayer1 = player1Deck.revealTopCard(), cardOfPlayer2 = player2Deck.revealTopCard();
-			System.out.println("Player 1 shows: " + cardOfPlayer1.toString() + " and Player 2 shows: " + cardOfPlayer2.toString() + "!");
+			JOptionPane.showMessageDialog(null, "Player 1 shows: " + cardOfPlayer1.toString() + " and Player 2 shows: " + cardOfPlayer2.toString() + "!");
 			if (cardOfPlayer1.getCardValue() > cardOfPlayer2.getCardValue()) {
-				System.out.println("Player 1 wins the round!");
+				JOptionPane.showMessageDialog(null, "Player 1 wins the round!");
 				player1Deck.addCardToBottom(player1Deck.removeCardFromTop());
 				player1Deck.addCardToBottom(player2Deck.removeCardFromTop());
 				while (!pile.isEmpty()) {
@@ -21,7 +23,7 @@ public class Main {
 				}
 			}
 			else if (cardOfPlayer1.getCardValue() < cardOfPlayer2.getCardValue()) {
-				System.out.println("Player 2 wins the round!");
+				JOptionPane.showMessageDialog(null, "Player 2 wins the round!");
 				player2Deck.addCardToBottom(player2Deck.removeCardFromTop());
 				player2Deck.addCardToBottom(player1Deck.removeCardFromTop());
 				while (!pile.isEmpty()) {
@@ -29,29 +31,28 @@ public class Main {
 				}
 			}
 			else {
-				System.out.println("This is a tie! - adding three extra cards!");
-				if (player1Deck.getDeckSize() > MIN_DECK_SIZE_FOR_PILE && player2Deck.getDeckSize() > MIN_DECK_SIZE_FOR_PILE) {
-					for (int i = 0; i < 3; i++) {
-						pile.add(player1Deck.removeCardFromTop());
-						pile.add(player2Deck.removeCardFromTop());
-					}
+				JOptionPane.showMessageDialog(null, "This is a tie! - adding three extra cards!");
+				for (int i = 0; i < 3 && !player1Deck.isDeckEmpty(); i++) {
+					pile.add(player1Deck.removeCardFromTop());
 				}
-				else {
-					break;
+				for (int i = 0; i < 3 && !player2Deck.isDeckEmpty(); i++) {
+					pile.add(player2Deck.removeCardFromTop());
 				}
 			}
 		}
-		
-		if (player1Deck.getDeckSize() >= 4 && player2Deck.getDeckSize() < 4) {
-			System.out.println("Player 2 is out of cards!");
-			System.out.println("Player 1 wins the game!");
-		}
-		else if (player1Deck.getDeckSize() < 4 && player2Deck.getDeckSize() >= 4) {
-			System.out.println("Player 1 is out of cards!");
-			System.out.println("Player 2 wins the game!");
+
+		if (player2Deck.isDeckEmpty()) {
+			if (player1Deck.isDeckEmpty()) {
+				JOptionPane.showMessageDialog(null, "Game ends in a tie ! - both players out of cards at the same time!");
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Player 2 is out of cards!");
+				JOptionPane.showMessageDialog(null, "Player 1 wins the game!");
+			}
 		}
 		else {
-			System.out.println("Game ends in a tie ! - both players out of cards at the same time!");
+			JOptionPane.showMessageDialog(null, "Player 1 is out of cards!");
+			JOptionPane.showMessageDialog(null, "Player 2 wins the game!");
 		}
 	}
 }
