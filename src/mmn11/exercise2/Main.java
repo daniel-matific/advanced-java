@@ -10,12 +10,13 @@ public class Main {
 		DeckOfCards player1Deck = new DeckOfCards(), player2Deck = new DeckOfCards();
 		ArrayList<Card> pile = new ArrayList<Card>();
 		final int TOP_CARD = 0;
+		String roundDetails;
 
 		while (!player1Deck.isDeckEmpty() && !player2Deck.isDeckEmpty()) {
 			Card cardOfPlayer1 = player1Deck.revealTopCard(), cardOfPlayer2 = player2Deck.revealTopCard();
-			JOptionPane.showMessageDialog(null, "Player 1 shows: " + cardOfPlayer1.toString() + " and Player 2 shows: " + cardOfPlayer2.toString() + "!");
+			roundDetails = "Player 1 shows: " + cardOfPlayer1.toString() + " and Player 2 shows: " + cardOfPlayer2.toString() + "!\n";
 			if (cardOfPlayer1.getCardValue() > cardOfPlayer2.getCardValue()) {
-				JOptionPane.showMessageDialog(null, "Player 1 wins the round!");
+				JOptionPane.showMessageDialog(null, roundDetails + "Player 1 wins the round!");
 				player1Deck.addCardToBottom(player1Deck.removeCardFromTop());
 				player1Deck.addCardToBottom(player2Deck.removeCardFromTop());
 				while (!pile.isEmpty()) {
@@ -23,7 +24,7 @@ public class Main {
 				}
 			}
 			else if (cardOfPlayer1.getCardValue() < cardOfPlayer2.getCardValue()) {
-				JOptionPane.showMessageDialog(null, "Player 2 wins the round!");
+				JOptionPane.showMessageDialog(null, roundDetails + "Player 2 wins the round!");
 				player2Deck.addCardToBottom(player2Deck.removeCardFromTop());
 				player2Deck.addCardToBottom(player1Deck.removeCardFromTop());
 				while (!pile.isEmpty()) {
@@ -31,7 +32,7 @@ public class Main {
 				}
 			}
 			else {
-				JOptionPane.showMessageDialog(null, "This is a tie! - adding three extra cards!");
+				JOptionPane.showMessageDialog(null, roundDetails + "This is a tie! - adding three extra cards!");
 				for (int i = 0; i < 3 && !player1Deck.isDeckEmpty(); i++) {
 					pile.add(player1Deck.removeCardFromTop());
 				}
