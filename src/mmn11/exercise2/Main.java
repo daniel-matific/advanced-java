@@ -7,43 +7,43 @@ import javax.swing.JOptionPane;
 public class Main {
 
 	public static void main(String[] args) {
-		DeckOfCards player1Deck = new DeckOfCards(), player2Deck = new DeckOfCards();
+		DeckOfCards game = new DeckOfCards();
 		ArrayList<Card> pile = new ArrayList<Card>();
 		final int TOP_CARD = 0;
 		String roundDetails;
 
-		while (!player1Deck.isDeckEmpty() && !player2Deck.isDeckEmpty()) {
-			Card cardOfPlayer1 = player1Deck.revealTopCard(), cardOfPlayer2 = player2Deck.revealTopCard();
+		while (!game.isPlayer1DeckEmpty() && !game.isPlayer2DeckEmpty()) {
+			Card cardOfPlayer1 = game.player1RevealTopCard(), cardOfPlayer2 = game.player2RevealTopCard();
 			roundDetails = "Player 1 shows: " + cardOfPlayer1.toString() + " and Player 2 shows: " + cardOfPlayer2.toString() + "!\n";
 			if (cardOfPlayer1.getCardValue() > cardOfPlayer2.getCardValue()) {
 				JOptionPane.showMessageDialog(null, roundDetails + "Player 1 wins the round!");
-				player1Deck.addCardToBottom(player1Deck.removeCardFromTop());
-				player1Deck.addCardToBottom(player2Deck.removeCardFromTop());
+				game.player1AddCardToBottom(game.player1RemoveCardFromTop());
+				game.player1AddCardToBottom(game.player2RemoveCardFromTop());
 				while (!pile.isEmpty()) {
-					player1Deck.addCardToBottom(pile.remove(TOP_CARD));
+					game.player1AddCardToBottom(pile.remove(TOP_CARD));
 				}
 			}
 			else if (cardOfPlayer1.getCardValue() < cardOfPlayer2.getCardValue()) {
 				JOptionPane.showMessageDialog(null, roundDetails + "Player 2 wins the round!");
-				player2Deck.addCardToBottom(player2Deck.removeCardFromTop());
-				player2Deck.addCardToBottom(player1Deck.removeCardFromTop());
+				game.player2AddCardToBottom(game.player2RemoveCardFromTop());
+				game.player2AddCardToBottom(game.player1RemoveCardFromTop());
 				while (!pile.isEmpty()) {
-					player2Deck.addCardToBottom(pile.remove(TOP_CARD));
+					game.player2AddCardToBottom(pile.remove(TOP_CARD));
 				}
 			}
 			else {
 				JOptionPane.showMessageDialog(null, roundDetails + "This is a tie! - adding three extra cards!");
-				for (int i = 0; i < 3 && !player1Deck.isDeckEmpty(); i++) {
-					pile.add(player1Deck.removeCardFromTop());
+				for (int i = 0; i < 3 && !game.isPlayer1DeckEmpty(); i++) {
+					pile.add(game.player1RemoveCardFromTop());
 				}
-				for (int i = 0; i < 3 && !player2Deck.isDeckEmpty(); i++) {
-					pile.add(player2Deck.removeCardFromTop());
+				for (int i = 0; i < 3 && !game.isPlayer2DeckEmpty(); i++) {
+					pile.add(game.player2RemoveCardFromTop());
 				}
 			}
 		}
 
-		if (player2Deck.isDeckEmpty()) {
-			if (player1Deck.isDeckEmpty()) {
+		if (game.isPlayer2DeckEmpty()) {
+			if (game.isPlayer1DeckEmpty()) {
 				JOptionPane.showMessageDialog(null, "Game ends in a tie ! - both players out of cards at the same time!");
 			}
 			else {

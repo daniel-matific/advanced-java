@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 public class DeckOfCards {
 	private ArrayList<Card> deck;
+	private ArrayList<Card> player1Deck;
+	private ArrayList<Card> player2Deck;
 	private static final int NUMBER_OF_CARDS = 52, TOP_CARD = 0;
 	private static final SecureRandom randomNumbers = new SecureRandom();
 	
@@ -20,6 +22,18 @@ public class DeckOfCards {
 		}
 		
 		shuffle();
+		
+		player1Deck = new ArrayList<Card>(NUMBER_OF_CARDS/2);
+		player2Deck = new ArrayList<Card>(NUMBER_OF_CARDS/2);
+		
+		for (int count = 0; count < NUMBER_OF_CARDS; count++) {
+			if (count % 2 == 0) {
+				player1Deck.add(deck.remove(TOP_CARD));
+			}
+			else {
+				player2Deck.add(deck.remove(TOP_CARD));
+			}
+		}
 	}
 	
 	public void shuffle() {
@@ -36,23 +50,43 @@ public class DeckOfCards {
 		}
 	}
 	
-	public boolean isDeckEmpty() {
-		return deck.isEmpty();
+	public boolean isPlayer1DeckEmpty() {
+		return player1Deck.isEmpty();
 	}
 	
-	public int getDeckSize() {
-		return deck.size();
+	public boolean isPlayer2DeckEmpty() {
+		return player2Deck.isEmpty();
 	}
 	
-	public Card removeCardFromTop() {
-		return deck.remove(TOP_CARD);
+	public int getPlayer1DeckSize() {
+		return player1Deck.size();
 	}
 	
-	public void addCardToBottom(Card card) {
-		deck.add(card);
+	public int getPlayer2DeckSize() {
+		return player2Deck.size();
 	}
 	
-	public Card revealTopCard() {
-		return deck.get(TOP_CARD);
+	public Card player1RemoveCardFromTop() {
+		return player1Deck.remove(TOP_CARD);
+	}
+	
+	public Card player2RemoveCardFromTop() {
+		return player2Deck.remove(TOP_CARD);
+	}
+	
+	public void player1AddCardToBottom(Card card) {
+		player1Deck.add(card);
+	}
+	
+	public void player2AddCardToBottom(Card card) {
+		player2Deck.add(card);
+	}
+	
+	public Card player1RevealTopCard() {
+		return player1Deck.get(TOP_CARD);
+	}
+	
+	public Card player2RevealTopCard() {
+		return player2Deck.get(TOP_CARD);
 	}
 }
