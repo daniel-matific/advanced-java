@@ -8,4 +8,8 @@ public abstract class Animal {
 	
 	protected abstract void eat();
 	protected abstract void sleep();
+	
+	public int getAge() {
+		return age;
+	}
 }

@@ -1,6 +1,8 @@
 package mmn12.exercise1;
 
 public class Parrot extends Bird {
+	
+	private Owner owner;
 
 	@Override
 	protected void eat() {
@@ -14,7 +16,7 @@ public class Parrot extends Bird {
 
 	@Override
 	protected void fly() {
-		System.out.println("Parrot flies ???.");
+		System.out.println("Parrot flies in the sky.");
 	}
 
 }
