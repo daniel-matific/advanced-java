@@ -13,4 +13,20 @@ public class Owner {
 		this.name = name;
 		this.phone = phone;
 	}
+	
+	public String getOwnerName() {
+		return name;
+	}
+	
+	public String getOwnerPhone() {
+		return phone;
+	}
+	
+	public void setOwnerName(String name) {
+		this.name = name;
+	}
+	
+	public void setOwnerPhone(String phone) {
+		this.phone = phone;
+	}
 }
