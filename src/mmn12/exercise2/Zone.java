@@ -15,7 +15,7 @@ public class Zone extends JPanel {
 	
 	public Zone() {
 		currentState = random.nextBoolean();
-		setPreferredSize(new Dimension(50, 50)); 
+		setPreferredSize(new Dimension(30, 30)); 
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		if (currentState) {
 			setBackground(Color.DARK_GRAY);
