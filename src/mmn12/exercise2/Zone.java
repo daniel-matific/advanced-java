@@ -1,14 +1,37 @@
 package mmn12.exercise2;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.security.SecureRandom;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 
-public class Zone {
+@SuppressWarnings("serial")
+public class Zone extends JPanel {
+
 	private boolean currentState;
 	private boolean nextState;
 	private static SecureRandom random = new SecureRandom();
 	
 	public Zone() {
 		currentState = random.nextBoolean();
+		setPreferredSize(new Dimension(50, 50)); 
+		setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		if (currentState) {
+			setBackground(Color.DARK_GRAY);
+		}
+		else {
+			setBackground(Color.WHITE);
+		}
+	}
+	
+	public void updateZone() {
+		if (currentState) {
+			setBackground(Color.DARK_GRAY);
+		}
+		else {
+			setBackground(Color.WHITE);
+		}
 	}
 	
 	public boolean getCurrentState() {
@@ -19,8 +42,8 @@ public class Zone {
 		return nextState;
 	}
 	
-	public void setCurrentState(boolean state) {
-		currentState = state;
+	public void setCurrentState() {
+		currentState = nextState;
 	}
 	
 	public void setNextState(boolean state) {
