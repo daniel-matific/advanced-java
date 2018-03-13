@@ -25,17 +25,17 @@ public class GameOfLife extends JFrame {
         
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        visualizeMatrix(getContentPane(), matrix);
+        visualizeMatrix(getContentPane(), matrix, size);
         pack();
         setVisible(true);
     }
     
-    public void visualizeMatrix(final Container pane, Zone[][] matrix) {
+    public void visualizeMatrix(final Container pane, Zone[][] matrix, int size) {
         
         JPanel gridPanel = new JPanel();
-        gridPanel.setLayout(new GridLayout(10,10));
-        for (int i = 0; i < 10; i++) {
-        	for (int j = 0; j < 10; j++) {
+        gridPanel.setLayout(new GridLayout(size, size));
+        for (int i = 0; i < size; i++) {
+        	for (int j = 0; j < size; j++) {
         		gridPanel.add(matrix[i][j]);
         	}
         }
