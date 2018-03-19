@@ -60,6 +60,6 @@ public abstract class Animal {
 	    		e.printStackTrace();
 	    	}
 	    }
-	    return "unknown";
+	    return color.toString();
 	}
 }
