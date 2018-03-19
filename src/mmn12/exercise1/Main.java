@@ -1,17 +1,18 @@
 package mmn12.exercise1;
 
 import java.util.ArrayList;
+import java.awt.Color;
 
 public class Main {
 
 	public static void main(String[] args) {
 		ArrayList<Animal> animalHouse = new ArrayList<Animal>();
-		animalHouse.add(new Sardine("Bob", 2, "Gray"));
-		animalHouse.add(new Snake("George", 12, "Green"));
-		animalHouse.add(new Parrot("Donald", 6, "Blue"));
-		animalHouse.add(new Pigeon("Ella", 8, "Turquoise"));
-		animalHouse.add(new Tiger("Max", 15, "Orange"));
-		animalHouse.add(new Dog("Stephanie", 1, "Brown"));
+		animalHouse.add(new Sardine("Bob", 2, Color.GRAY));
+		animalHouse.add(new Snake("George", 12, Color.GREEN));
+		animalHouse.add(new Parrot("Donald", 6, Color.BLUE));
+		animalHouse.add(new Pigeon("Ella", 8, Color.CYAN));
+		animalHouse.add(new Tiger("Max", 15, Color.ORANGE));
+		animalHouse.add(new Dog("Stephanie", 1, Color.BLACK));
 		
 		for (Animal animal : animalHouse) {
 			System.out.println(animal.toString());
@@ -27,7 +28,7 @@ public class Main {
 		
 		System.out.println();
 		
-		Dog original = new Dog("Norman", 5, "White", "Mrs. Smith", "0525873551");
+		Dog original = new Dog("Norman", 5, Color.WHITE, "Mrs. Smith", "0525873551");
 		Dog clone = original.clone();
 		
 		if (original.equals(clone)) {

@@ -1,14 +1,16 @@
 package mmn12.exercise1;
 
+import java.awt.Color;
+
 public class Tiger extends Mammal {
 
 	public Tiger() {
 		name = "";
 		age = 0;
-		color = "";
+		color = new Color(0);
 	}
 	
-	public Tiger(String name, int age, String color) {
+	public Tiger(String name, int age, Color color) {
 		this.name = name;
 		this.age = age;
 		this.color = color;

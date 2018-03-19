@@ -1,5 +1,7 @@
 package mmn12.exercise1;
 
+import java.awt.Color;
+
 public class Dog extends Mammal {
 	
 	protected Owner owner;
@@ -7,18 +9,18 @@ public class Dog extends Mammal {
 	public Dog() {
 		name = "";
 		age = 0;
-		color = "";
+		color = new Color(0);
 		owner = new Owner();
 	}
 	
-	public Dog(String name, int age, String color) {
+	public Dog(String name, int age, Color color) {
 		this.name = name;
 		this.age = age;
 		this.color = color;
 		owner = new Owner();
 	}
 	
-	public Dog(String name, int age, String color, String ownerName, String ownerPhone) {
+	public Dog(String name, int age, Color color, String ownerName, String ownerPhone) {
 		this.name = name;
 		this.age = age;
 		this.color = color;
