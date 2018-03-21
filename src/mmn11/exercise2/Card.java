@@ -11,7 +11,7 @@ public class Card {
 	
 	public int getCardValue() {
 		switch (face) {
-		case "Ace": return 1;
+		case "Ace": return 14;
 		case "Deuce": return 2;
 		case "Three": return 3;
 		case "Four": return 4;
