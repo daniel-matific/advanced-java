@@ -60,6 +60,6 @@ public abstract class Animal {
 	    		e.printStackTrace();
 	    	}
 	    }
-	    return color.toString();
+	    return color.getRed() + "," + color.getGreen() + "," + color.getBlue();
 	}
 }
