@@ -14,17 +14,9 @@ public abstract class Shape extends JPanel implements ActionListener {
 	protected Dimension size;
 	protected Color color;
 	protected boolean isFilled;
-	protected Timer timer;
+	protected final Timer timer = new Timer(50, this);;
 	
-	public Shape createShape(Color color, boolean isFilled) {
-		x = y = width = height = 0;
-		setPreferredSize(new Dimension(30,30));
-		this.color = color;
-		this.isFilled = isFilled;
-		timer = new Timer(60, this);
-		timer.start();
-		return this;
-	}
+	public abstract Shape createShape(Color color, boolean isFilled);
 	
 	public String toString() {
 		return getClass().getSimpleName();

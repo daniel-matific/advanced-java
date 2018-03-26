@@ -11,7 +11,7 @@ import javax.swing.JRadioButton;
 @SuppressWarnings("serial")
 public class ButtonPanel extends JPanel {
 	
-	private JComboBox<Shapes> shapesBox;
+	private JComboBox<Shape> shapesBox;
 	private JComboBox<MyColor> colorBox;
 	private JRadioButton filled, empty;
 	private JButton undo, clear, exit, paint;
@@ -19,9 +19,11 @@ public class ButtonPanel extends JPanel {
 	public ButtonPanel() {
 		super(new GridLayout(4, 2));
 		
-		shapesBox = new JComboBox<Shapes>();
-		shapesBox.addItem(Shapes.Circle);
-		shapesBox.addItem(Shapes.Line);
+		shapesBox = new JComboBox<Shape>();
+		shapesBox.addItem(new Circle());
+		shapesBox.addItem(new Line());
+		shapesBox.addItem(new Rectangle());
+		shapesBox.addItem(new RoundedRectangle());
 		shapesBox.setSelectedIndex(0);
 		
 		colorBox = new JComboBox<MyColor>();
@@ -63,7 +65,7 @@ public class ButtonPanel extends JPanel {
 		add(exit);
 	}
 	
-	public JComboBox<Shapes> getShapesBox() {
+	public JComboBox<Shape> getShapesBox() {
 		return shapesBox;
 	}
 	

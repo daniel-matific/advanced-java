@@ -34,19 +34,23 @@ public class MainPanel extends JPanel implements ActionListener {
 				Shape lastShape = outputPanel.getShapes().get(outputPanel.getShapes().size()-1);
 				outputPanel.getShapes().remove(lastShape);
 		    	outputPanel.remove(lastShape);
+		    	outputPanel.revalidate();
 		    	outputPanel.repaint();
 			}
 		}
 		if(e.getSource() == buttonPanel.getPaint()) {
 			Color chosenColor = ((MyColor) buttonPanel.getColorBox().getSelectedItem()).getColor();
-			Shape chosenShape = ((Shapes) buttonPanel.getShapesBox().getSelectedItem()).getShape();
+			Shape chosenShape =  (Shape) buttonPanel.getShapesBox().getSelectedItem();
 			outputPanel.getShapes().add(chosenShape.createShape(chosenColor, buttonPanel.getFilledButton().isSelected()));
 	    	outputPanel.add(outputPanel.getShapes().get(outputPanel.getShapes().size()-1));
 	    	outputPanel.revalidate();
+	    	outputPanel.repaint();
 		}
 		if(e.getSource() == buttonPanel.getClear()) {
+			outputPanel.getShapes().removeAll(outputPanel.getShapes());
 			outputPanel.removeAll();
-			outputPanel.repaint();
+			outputPanel.revalidate();
+	    	outputPanel.repaint();
 		}
 		else if(e.getSource() == buttonPanel.getExit()) {
 			System.exit(0);
