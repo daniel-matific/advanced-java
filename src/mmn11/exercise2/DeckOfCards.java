@@ -11,32 +11,26 @@ public class DeckOfCards {
 	private static final SecureRandom randomNumbers = new SecureRandom();
 	
 	public DeckOfCards() {
+		createDeck();
+		shuffleDeck();
+		distributeDeck();
+	}
+	
+	// creates the 52 card deck
+	private void createDeck() {
 		String[] faces = {"Ace","Deuce","Three","Four","Five","Six","Seven","Eight","Nine",
-							"Ten","Jack","Queen","King"};
+				"Ten","Jack","Queen","King"};
 		String[] suits = {"Hearts","Diamonds","Clubs","Spades"};
-		
+
 		deck = new ArrayList<Card>(NUMBER_OF_CARDS);
-		
+
 		for (int count = 0; count < NUMBER_OF_CARDS; count++) {
 			deck.add(count, new Card(faces[count % 13], suits[count / 13]));
 		}
-		
-		shuffle();
-		
-		player1Deck = new ArrayList<Card>(NUMBER_OF_CARDS/2);
-		player2Deck = new ArrayList<Card>(NUMBER_OF_CARDS/2);
-		
-		for (int count = 0; count < NUMBER_OF_CARDS; count++) {
-			if (count % 2 == 0) {
-				player1Deck.add(deck.remove(TOP_CARD));
-			}
-			else {
-				player2Deck.add(deck.remove(TOP_CARD));
-			}
-		}
 	}
 	
-	public void shuffle() {
+	// shuffles the deck
+	private void shuffleDeck() {
 		int first = 0, second;
 		Card temp;
 		for (Card card : deck) {
@@ -47,6 +41,21 @@ public class DeckOfCards {
 			deck.set(second, temp);
 			
 			first++;
+		}
+	}
+	
+	// distributes half the deck to player 1 and the other half to player 2
+	private void distributeDeck() {
+		player1Deck = new ArrayList<Card>(NUMBER_OF_CARDS/2);
+		player2Deck = new ArrayList<Card>(NUMBER_OF_CARDS/2);
+		
+		for (int count = 0; count < NUMBER_OF_CARDS; count++) {
+			if (count % 2 == 0) {
+				player1Deck.add(deck.remove(TOP_CARD));
+			}
+			else {
+				player2Deck.add(deck.remove(TOP_CARD));
+			}
 		}
 	}
 	
