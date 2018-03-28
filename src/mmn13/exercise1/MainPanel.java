@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class MainPanel extends JPanel implements ActionListener {
+public class MainPanel extends JPanel implements ActionListener, MouseListener {
 	
 	private OutputPanel outputPanel;
 	private ButtonPanel buttonPanel;
@@ -23,6 +25,7 @@ public class MainPanel extends JPanel implements ActionListener {
 		buttonPanel.getClear().addActionListener(this);
 		buttonPanel.getExit().addActionListener(this);
 		buttonPanel.getPaint().addActionListener(this);
+		buttonPanel.getPaint().addMouseListener(this);
 		add(outputPanel);
 		add(buttonPanel);
 	}
@@ -41,7 +44,8 @@ public class MainPanel extends JPanel implements ActionListener {
 		if(e.getSource() == buttonPanel.getPaint()) {
 			Color chosenColor = ((MyColor) buttonPanel.getColorBox().getSelectedItem()).getColor();
 			Shape chosenShape =  (Shape) buttonPanel.getShapesBox().getSelectedItem();
-			outputPanel.getShapes().add(chosenShape.createShape(chosenColor, buttonPanel.getFilledButton().isSelected()));
+			Shape newShape = chosenShape.createShape(chosenColor, buttonPanel.getFilledButton().isSelected());
+			outputPanel.getShapes().add(newShape);
 	    	outputPanel.add(outputPanel.getShapes().get(outputPanel.getShapes().size()-1));
 	    	outputPanel.revalidate();
 	    	outputPanel.repaint();
@@ -55,5 +59,38 @@ public class MainPanel extends JPanel implements ActionListener {
 		else if(e.getSource() == buttonPanel.getExit()) {
 			System.exit(0);
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if(e.getSource() == buttonPanel.getPaint()) {
+			outputPanel.getShapes().get(outputPanel.getShapes().size()-1);
+	    	/*outputPanel.revalidate();
+	    	outputPanel.repaint();*/
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
