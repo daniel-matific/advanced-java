@@ -6,6 +6,12 @@ public class Item {
 	private Category category;
 	private int price;
 	
+	public Item() {
+		this.description = "";
+		this.category = null;
+		this.price = 0;
+	}
+	
 	public Item(String description, Category category, int price) {
 		this.description = description;
 		this.category = category;

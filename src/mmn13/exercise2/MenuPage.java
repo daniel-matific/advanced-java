@@ -1,33 +1,29 @@
 package mmn13.exercise2;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
+import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class MenuPage extends JPanel {
 	
-	private ArrayList<Item> items;
-	
-	public MenuPage(File menu, Category category) {
-		switch(category) {
-		case FIRST_COURSE:break;
-		case MAIN_COURSE:break;
-		case DESSERT:break;
-		case DRINK:break;
+	public MenuPage(Category category, ArrayList<Item> items) {
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		Integer[] values = {1,2,3,4,5};
+		JPanel row;
+		for(Item item : items) {
+			row = new JPanel();
+			if(item.getCategory() == category) {
+				row.add(new JLabel(item.getDescription() + ": " + item.getPrice()));
+				row.add(new JCheckBox());
+				row.add(new JComboBox<Integer>(values));
+				add(row);
+				row.setMaximumSize(row.getPreferredSize());
+			}
 		}
 	}
-	
-	private void convertFileToItemList(File menu) {
-		try {
-			Scanner input = new Scanner(menu);
-		}
-		catch (FileNotFoundException e) {
-			
-		}
-	}
-	
 }
