@@ -2,19 +2,15 @@ package mmn13.exercise1;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 @SuppressWarnings("serial")
-public abstract class Shape extends JPanel implements ActionListener {
+public abstract class Shape extends JPanel {
 	protected int x, y, width, height;
 	protected Dimension size;
 	protected Color color;
 	protected boolean isFilled;
-	protected final Timer timer = new Timer(50, this);;
 	
 	public abstract Shape createShape(Color color, boolean isFilled);
 	
@@ -22,20 +18,21 @@ public abstract class Shape extends JPanel implements ActionListener {
 		return getClass().getSimpleName();
 	}
 	
-    protected void animateDraw() {
-        if (width < getPreferredSize().getWidth()-1) {
-        	width += 1;
-            height += 1;
-        }
-        if (height < getPreferredSize().getHeight()-1) {
-        	width += 1;
-            height += 1;
-        }
+    protected void animateDraw() throws InterruptedException {
+	    width += 1;
+	    height += 1;
+	    setSize(new Dimension(width, height));
+	    setPreferredSize(new Dimension(width, height));
+	    Thread.sleep(20);
+	    revalidate();
+	    repaint();
     }
     
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		animateDraw();
-		repaint();
-	}
+    public void updateSize(Dimension size) {
+    	this.size = size;
+    }
+    
+    public void printStuff() {
+    	System.out.println(x + "," + y + ";" + size.toString());
+    }
 }

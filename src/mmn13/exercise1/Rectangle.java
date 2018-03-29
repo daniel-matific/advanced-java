@@ -1,7 +1,6 @@
 package mmn13.exercise1;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -10,7 +9,6 @@ import java.awt.RenderingHints;
 public class Rectangle extends Shape {
 	
 	public Rectangle() {
-		timer.start();
 	}
 	
 	@Override
@@ -24,18 +22,16 @@ public class Rectangle extends Shape {
 			g2.fillRect(0, 0, width, height);
 		}
 		else {
-			g2.drawRect(0, 0, width, height);
+			g2.drawRect(0, 0, width-1, height-1);
 		}
 		x = getX();
 		y = getY();
-		size = getSize();
 	}
 	
 	@Override
 	public Shape createShape(Color color, boolean isFilled) {
 		Rectangle rectangle = new Rectangle();
 		rectangle.x = rectangle.y = rectangle.width = rectangle.height = 0;
-		rectangle.setPreferredSize(new Dimension(30,30));
 		rectangle.color = color;
 		rectangle.isFilled = isFilled;
 		return rectangle;
