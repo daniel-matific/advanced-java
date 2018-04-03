@@ -57,8 +57,10 @@ public class Menu extends JPanel implements ActionListener {
 	}
 
 	private void convertFileToItemList(File menu) {
+		Scanner input = null;
 		try {
-			Scanner input = new Scanner(menu);
+			menu.canRead();
+			input = new Scanner(menu);
 			int i = 0;
 			while(input.hasNext()) {
 				if(i % 3 == 0) {
@@ -70,15 +72,33 @@ public class Menu extends JPanel implements ActionListener {
 				break;
 				case 1: items.get(items.size()-1).setCategory(Category.valueOf(input.nextLine()));
 				break;
-				case 2: items.get(items.size()-1).setPrice(Integer.parseInt(input.nextLine()));
+				case 2: items.get(items.size()-1).setPrice(Double.parseDouble(input.nextLine()));
 				break;
 				}	
 				i++;
 			}
 			input.close();
 		}
-		catch (FileNotFoundException e) {
-
+		catch(SecurityException e) {
+			JOptionPane.showMessageDialog(this, "Menu path is not leading to a menu text file!");
+			System.exit(0);
+		}
+		catch(FileNotFoundException e) {
+			JOptionPane.showMessageDialog(this, "Menu file not found!");
+			System.exit(0);
+		}
+		catch(NumberFormatException e) {
+			JOptionPane.showMessageDialog(this, "Menu contains prices which are not numbers");
+			System.exit(0);
+		}
+		catch(IllegalArgumentException e) {
+			JOptionPane.showMessageDialog(this, "Menu contains item types which are not recognized");
+			System.exit(0);
+		}
+		finally {
+			if(input != null) {
+				input.close();
+			}
 		}
 	}
 
@@ -90,7 +110,7 @@ public class Menu extends JPanel implements ActionListener {
 			switch(choice) {
 			case 0: 
 				String outputFileName = JOptionPane.showInputDialog("Please enter your first name and ID(e.g. Name123456789):");
-				File outputFile = new File("D:\\workspace\\advanced-java\\bin\\mmn13\\exercise2\\" + outputFileName + ".txt");
+				File outputFile = new File("C:\\workspace\\advanced-java\\bin\\mmn13\\exercise2\\" + outputFileName + ".txt");
 				BufferedWriter writer = null;
 				try {
 					writer = new BufferedWriter(new FileWriter(outputFile));

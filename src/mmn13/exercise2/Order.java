@@ -9,7 +9,7 @@ import javax.swing.JTabbedPane;
 
 public class Order {
 	
-	private int totalPrice;
+	private double totalPrice;
 	private String orderDetails;
 	private final int PRICE = 1;
 	
@@ -39,7 +39,7 @@ public class Order {
 			JCheckBox isChosen = (JCheckBox) ((JPanel) menuPage.getComponent(i)).getComponent(1);
 			JComboBox<Integer> amount = (JComboBox<Integer>) ((JPanel) menuPage.getComponent(i)).getComponent(2);
 			if(isChosen.isSelected()) {
-				int amountTimesPrice = (Integer.parseInt(description.getText().split(": ")[PRICE])) * (Integer)amount.getSelectedItem();
+				double amountTimesPrice = Math.round((Double.parseDouble(description.getText().split(": ")[PRICE])) * (Integer)amount.getSelectedItem() * 100.0) / 100.0;
 				extractedItems += description.getText() + " * " + amount.getSelectedItem() + " = " + amountTimesPrice + "\r\n";
 				totalPrice += amountTimesPrice;
 			}

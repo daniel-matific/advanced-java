@@ -4,7 +4,7 @@ public class Item {
 	
 	private String description;
 	private Category category;
-	private int price;
+	private double price;
 	
 	public Item() {
 		this.description = "";
@@ -12,7 +12,7 @@ public class Item {
 		this.price = 0;
 	}
 	
-	public Item(String description, Category category, int price) {
+	public Item(String description, Category category, double price) {
 		this.description = description;
 		this.category = category;
 		this.price = price;
@@ -26,7 +26,7 @@ public class Item {
 		return category;
 	}
 	
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 	
@@ -38,7 +38,7 @@ public class Item {
 		this.category = category;
 	}
 	
-	public void setPrice(int price) {
-		this.price = price;
+	public void setPrice(double d) {
+		this.price = d;
 	}
 }
