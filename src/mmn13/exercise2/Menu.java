@@ -7,6 +7,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -77,7 +78,6 @@ public class Menu extends JPanel implements ActionListener {
 				}	
 				i++;
 			}
-			input.close();
 		}
 		catch(SecurityException e) {
 			JOptionPane.showMessageDialog(this, "Menu path is not leading to a menu text file!");
@@ -115,12 +115,20 @@ public class Menu extends JPanel implements ActionListener {
 				try {
 					writer = new BufferedWriter(new FileWriter(outputFile));
 					writer.write(order.getOrderDetails());
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				} finally {
-					try {
-						writer.close();
-					} catch (Exception e2) {
+				}
+				catch (IOException e1) {
+					JOptionPane.showMessageDialog(this, "Output path for the order file either exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason");
+					System.exit(0);
+				}
+				finally {
+					if(writer != null) {
+						try {
+							writer.close();
+						}
+						catch (IOException e1) {
+							JOptionPane.showMessageDialog(this, "Something went wrong :("); // Can't think of a better way to handle this exception
+							System.exit(0);
+						}
 					}
 				}
 				resetOrder();
