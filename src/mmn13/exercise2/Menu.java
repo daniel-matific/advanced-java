@@ -110,7 +110,7 @@ public class Menu extends JPanel implements ActionListener {
 			switch(choice) {
 			case 0: 
 				String outputFileName = JOptionPane.showInputDialog("Please enter your first name and ID(e.g. Name123456789):");
-				File outputFile = new File("C:\\workspace\\advanced-java\\bin\\mmn13\\exercise2\\" + outputFileName + ".txt");
+				File outputFile = new File(outputFileName + ".txt"); // Default path is the directory of the project
 				BufferedWriter writer = null;
 				try {
 					writer = new BufferedWriter(new FileWriter(outputFile));
