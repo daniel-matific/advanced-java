@@ -7,23 +7,17 @@ public class Dog extends Mammal {
 	protected Owner owner;
 
 	public Dog() {
-		name = "";
-		age = 0;
-		color = new Color(0);
+		super();
 		owner = new Owner();
 	}
 	
 	public Dog(String name, int age, Color color) {
-		this.name = name;
-		this.age = age;
-		this.color = color;
+		super(name, age, color);
 		owner = new Owner();
 	}
 	
 	public Dog(String name, int age, Color color, String ownerName, String ownerPhone) {
-		this.name = name;
-		this.age = age;
-		this.color = color;
+		super(name, age, color);
 		owner = new Owner(ownerName, ownerPhone);
 	}
 	

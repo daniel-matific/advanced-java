@@ -5,15 +5,11 @@ import java.awt.Color;
 public class Sardine extends Fish {
 	
 	public Sardine() {
-		name = "";
-		age = 0;
-		color = new Color(0);
+		super();
 	}
 	
 	public Sardine(String name, int age, Color color) {
-		this.name = name;
-		this.age = age;
-		this.color = color;
+		super(name, age, color);
 	}
 
 	@Override

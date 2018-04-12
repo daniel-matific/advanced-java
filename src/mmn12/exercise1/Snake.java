@@ -5,15 +5,11 @@ import java.awt.Color;
 public class Snake extends Reptile {
 
 	public Snake() {
-		name = "";
-		age = 0;
-		color = new Color(0);
+		super();
 	}
 	
 	public Snake(String name, int age, Color color) {
-		this.name = name;
-		this.age = age;
-		this.color = color;
+		super(name, age, color);
 	}
 	
 	@Override

@@ -13,7 +13,17 @@ public abstract class Animal {
 	public abstract void sleep();
 	public abstract Object clone();
 	
-	public Animal() {};
+	public Animal() {
+		name = "";
+		age = 0;
+		color = new Color(0);
+	}
+	
+	public Animal(String name, int age, Color color) {
+		this.name = name;
+		this.age = age;
+		this.color = color;
+	}
 	
 	public String getName() {
 		return name;
