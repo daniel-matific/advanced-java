@@ -13,6 +13,7 @@ public class GameOfLife extends JFrame {
 	private final boolean LIFE = true;
 	private final boolean DEATH = false;
 	
+	// creates matrix of Zones in the supplied size
     public GameOfLife(int size) {
         super("Game of Life");
         
@@ -30,6 +31,7 @@ public class GameOfLife extends JFrame {
         setVisible(true);
     }
     
+    // adds the matrix of Zones to the JFrame
     public void visualizeMatrix(final Container pane, Zone[][] matrix, int size) {
         
         JPanel gridPanel = new JPanel();
@@ -42,6 +44,7 @@ public class GameOfLife extends JFrame {
         pane.add(gridPanel);
     }
     
+    // calls a function to compute the next state of each Zone and then updates all Zones
     public void nextGeneration() {
         for (int i = 0; i < matrix[0].length; i++) {
         	for (int j = 0; j < matrix[0].length; j++) {
@@ -56,6 +59,7 @@ public class GameOfLife extends JFrame {
         }
     }
     
+    // computes the next state for a given Zone position
     public void generateNextState(int row, int column) {
     	int livingNeighbours = 0;
     	if (row > 0 && column > 0 && matrix[row-1][column-1].getCurrentState() == LIFE) {

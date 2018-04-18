@@ -11,6 +11,7 @@ public class Main {
     	while(JOptionPane.showConfirmDialog(null, "Do you want to move to the next generation?") == YES) {
     		gameOfLife.nextGeneration();
     	}
+    	System.exit(0);
 	}
 
 }
