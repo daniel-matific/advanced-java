@@ -11,7 +11,11 @@ public class Main {
 		LeesingVehicle vehicle3 = new Vehicle().new LeesingVehicle("3", "Subaro", 2016, "No comment", "Leesing is Cool", "Leon");
 		LeesingVehicle vehicle4 = new Vehicle().new LeesingVehicle("4", "Kia", 2010, "No comment", "Leesio", "Abraham");
 		Garage<Vehicle> garage = new Garage<>(4);
-		System.out.println("Adding to Garage Vehicle1, Vehicle2, Vehicle3, Vehicle4.\n");
+		System.out.println("Starting the work day, let's work!\n");
+		if(garage.work() == null) {
+			System.out.println("Oh, Garage is empty!\n");
+		}
+		System.out.println("Adding to Garage Vehicle \"1\", Vehicle \"2\", Vehicle \"3\" and Vehicle \"4\".\n");
 		garage.add(vehicle1);
 		garage.add(vehicle2);
 		garage.add(vehicle3);
@@ -19,15 +23,15 @@ public class Main {
 		System.out.println("Garage status:\n" + garage.toString());
 		System.out.println("Now working on:\n" + garage.work());
 		System.out.println("Garage status:\n" + garage.toString());
-		System.out.println("Removing Vehicle3.\n");
+		System.out.println("Removing Vehicle \"3\".\n");
 		garage.remove("3");
 		System.out.println("Garage status:\n" + garage.toString());
-		System.out.println("Adding to Garage Vehicle1, Vehicle3.\n");
+		System.out.println("Adding to Garage Vehicle \"1\" and Vehicle \"3\".\n");
 		garage.add(vehicle1);
 		garage.add(vehicle3);
 		System.out.println("Garage status:\n" + garage.toString());
 		PrivateVehicle vehicle5 = new Vehicle().new PrivateVehicle("5", "Hyundai", 2007, "No comment", "John");
-		System.out.println("Adding Vehicle5: " + vehicle5.toString());
+		System.out.println("Adding Vehicle \"5\": " + vehicle5.toString());
 		garage.add(vehicle5);
 	}
 
