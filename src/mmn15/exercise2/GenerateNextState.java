@@ -19,18 +19,29 @@ private final boolean DEATH = false;
 
 	@Override
 	public void run() {
-		gameOfLife.increaseActiveThreads();
+		
 		synchronized(gameOfLife) {
 			generateNextState(row, column);
+			gameOfLife.finished();
 		}
-		gameOfLife.finished();
+
 		gameOfLife.waitForAll();
-		gameOfLife.increaseActiveThreads();
+
 		synchronized(gameOfLife) {
+			gameOfLife.increaseActiveThreads();
 			gameOfLife.matrix[row][column].setCurrentState();
-			gameOfLife.matrix[row][column].updateZone();
+			gameOfLife.finished();
 		}
-		gameOfLife.finished();
+		
+		gameOfLife.waitForAll();
+		
+		synchronized(gameOfLife) {
+			gameOfLife.increaseActiveThreads();
+			gameOfLife.matrix[row][column].updateZone();
+			gameOfLife.finished();
+		}
+
+		//gameOfLife.waitForAll();
 	}
 	
     

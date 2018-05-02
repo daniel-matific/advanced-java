@@ -14,7 +14,7 @@ public class Zone extends JPanel {
 	private static SecureRandom random = new SecureRandom();
 	
 	public Zone() {
-		currentState = random.nextBoolean();
+		currentState = false;//random.nextBoolean();
 		setPreferredSize(new Dimension(30, 30)); 
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		if (currentState) {

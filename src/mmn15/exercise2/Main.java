@@ -4,12 +4,12 @@ import javax.swing.JOptionPane;
 
 public class Main {
 
-	public static void main(String[] args) throws InterruptedException {
-		GameOfLife gameOfLife = null;
+	public static void main(String[] args) {
+		Game game = null;
 		String size;
 		size = JOptionPane.showInputDialog("Please insert the size of the matrix: (Enter an integer only)");
 		try {
-		gameOfLife = new GameOfLife(Integer.parseInt(size));
+		game = new Game(Integer.parseInt(size));
 		}
 		catch(NumberFormatException e) {
         	JOptionPane.showMessageDialog(null, "The inserted size is not an integer!");
@@ -17,8 +17,10 @@ public class Main {
 		}
 		
     	while(true) {
-    		gameOfLife.nextGeneration();
-    		Thread.sleep(200);
+    		game.getGameOfLife().nextGeneration();
+    		try {
+				Thread.sleep(200);
+    		} catch (InterruptedException e) {}
     	}
 	}
 
