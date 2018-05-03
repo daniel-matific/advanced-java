@@ -30,18 +30,10 @@ private final boolean DEATH = false;
 		synchronized(gameOfLife) {
 			gameOfLife.increaseActiveThreads();
 			gameOfLife.matrix[row][column].setCurrentState();
-			gameOfLife.finished();
-		}
-		
-		gameOfLife.waitForAll();
-		
-		synchronized(gameOfLife) {
-			gameOfLife.increaseActiveThreads();
 			gameOfLife.matrix[row][column].updateZone();
 			gameOfLife.finished();
 		}
 
-		//gameOfLife.waitForAll();
 	}
 	
     

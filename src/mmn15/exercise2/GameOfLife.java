@@ -28,7 +28,7 @@ public class GameOfLife extends JPanel {
         		matrix[i][j] = new Zone();
         	}
         }
-        
+
         for(int j = 0; j < 10; j++) {
         	matrix[10][j+10].setNextState(true);
         	matrix[10][j+10].setCurrentState();
@@ -55,35 +55,12 @@ public class GameOfLife extends JPanel {
     public void nextGeneration() {
         for (int i = 0; i < matrix[0].length; i++) {
         	for (int j = 0; j < matrix[0].length; j++) {
-        		lock.lock();
-        		activeThreads++;
-        		lock.unlock();
+        		increaseActiveThreads();
         		new Thread(new GenerateNextState(i, j, this)).start();
         	}
         }
         waitForAll();
     }
-
-	/*@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == restart) {
-			for(Thread thread : threads) {
-					thread.interrupt();
-			}
-			threads = new ArrayList<Thread>();
-			
-	        for (int i = 0; i < size; i++) {
-	        	for (int j = 0; j < size; j++) {
-	        		matrix[i][j] = new Zone();
-	        	}
-	        }
-
-	        visualizeMatrix(matrix, size);
-	        panel.add(restart, BorderLayout.SOUTH);
-	        add(panel);
-	        pack();
-		}
-	}*/
 	
     public void finished()
     {

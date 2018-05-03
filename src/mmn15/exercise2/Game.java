@@ -1,18 +1,9 @@
 package mmn15.exercise2;
 
-import java.awt.BorderLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-
-import mmn13.exercise2.Category;
-import mmn13.exercise2.MenuPage;
-import mmn13.exercise2.Order;
 
 @SuppressWarnings("serial")
 public class Game extends JFrame implements ActionListener {
@@ -41,19 +32,13 @@ public class Game extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == restart) {
-			/*removeAll();
-			getContentPane().removeAll();
-
-			mainPanel = new JPanel(new BorderLayout());
-			//restart = new JButton("Restart");
+			mainPanel.removeAll();
 			gameOfLife = new GameOfLife(size);
-	        mainPanel.add(gameOfLife, BorderLayout.CENTER);
-	        //mainPanel.add(restart, BorderLayout.SOUTH);
-	        add(mainPanel);
-			//revalidate();
-			//repaint();
-			pack();
-	        setVisible(true);*/
+			mainPanel.add(gameOfLife, BorderLayout.CENTER);
+			mainPanel.add(restart, BorderLayout.SOUTH);
+			add(mainPanel);
+			revalidate();
+			repaint();
 		}
 	}
 	

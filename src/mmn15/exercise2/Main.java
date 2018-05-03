@@ -1,6 +1,6 @@
 package mmn15.exercise2;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class Main {
 
