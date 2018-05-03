@@ -5,3 +5,5 @@
 .project
 
 /menu.txt
+.idea
+*.iml
