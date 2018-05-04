@@ -1,33 +1,41 @@
 package mmn15.exercise2;
 
+import java.util.concurrent.CountDownLatch;
+
 public class GenerateNextState implements Runnable {
 
 private GameOfLife gameOfLife;
 private int row, column;
 private final boolean LIFE = true;
 private final boolean DEATH = false;
+private CountDownLatch middleSignal;
+private CountDownLatch doneSignal;
 	
-	public GenerateNextState(int row, int column, GameOfLife gameOfLife) {
+	public GenerateNextState(int row, int column, GameOfLife gameOfLife, CountDownLatch middleSignal, CountDownLatch doneSignal) {
 		this.row = row;
 		this.column = column;
 		this.gameOfLife = gameOfLife;
+		this.middleSignal = middleSignal;
+		this.doneSignal = doneSignal;
 	}
 
 	@Override
 	public void run() {
-		
+
 		synchronized(gameOfLife) {
 			generateNextState(row, column);
-			gameOfLife.finished();
+			middleSignal.countDown();
 		}
 
-		gameOfLife.waitForAll();
+		try {
+			middleSignal.await();
+		}
+		catch (InterruptedException e) {}
 
 		synchronized(gameOfLife) {
-			gameOfLife.increaseActiveThreads();
 			gameOfLife.matrix[row][column].setCurrentState();
 			gameOfLife.matrix[row][column].updateZone();
-			gameOfLife.finished();
+			doneSignal.countDown();
 		}
 
 	}
