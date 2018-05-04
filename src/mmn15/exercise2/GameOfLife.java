@@ -30,9 +30,9 @@ public class GameOfLife extends JPanel {
         }
 
         for(int j = 0; j < 10; j++) {
-        	matrix[10][j+10].setNextState(true);
-        	matrix[10][j+10].setCurrentState();
-        	matrix[10][j+10].updateZone();
+        	matrix[10][j+5].setNextState(true);
+        	matrix[10][j+5].setCurrentState();
+        	matrix[10][j+5].updateZone();
         }
         
         visualizeMatrix(matrix, size);

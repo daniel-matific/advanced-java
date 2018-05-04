@@ -7,10 +7,6 @@ private int row, column;
 private final boolean LIFE = true;
 private final boolean DEATH = false;
 	
-	public GenerateNextState() {
-		super();
-	}
-	
 	public GenerateNextState(int row, int column, GameOfLife gameOfLife) {
 		this.row = row;
 		this.column = column;
