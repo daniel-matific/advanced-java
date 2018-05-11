@@ -1,15 +1,11 @@
 package mmn14.exercise2;
 
-public class Vehicle {
+public abstract class Vehicle {
 	
 	private String license;
 	private String vehicleType;
 	private int manufactureYear;
 	private String comment;
-	
-	public Vehicle() {
-		super();
-	}
 	
 	public Vehicle(String license, String vehicleType, int manufactureYear, String comment) {
 		this.license = license;
@@ -61,7 +57,7 @@ public class Vehicle {
 		return "Vehicle license: " + license + ", Type: " + vehicleType + ", Manufacture Year: " + manufactureYear + ", Comment: " + comment + ".\n";
 	}
 	
-	public class PrivateVehicle extends Vehicle {
+	public static class PrivateVehicle extends Vehicle {
 
 		private String ownerName;
 
@@ -80,7 +76,7 @@ public class Vehicle {
 		
 	}
 	
-	public class LeesingVehicle extends Vehicle {
+	public static class LeesingVehicle extends Vehicle {
 		
 		private String companyName;
 		private String workerName;

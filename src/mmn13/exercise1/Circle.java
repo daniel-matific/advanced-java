@@ -7,10 +7,8 @@ import java.awt.RenderingHints;
 
 @SuppressWarnings("serial")
 public class Circle extends Shape {
-	
-	public Circle() {
-	}
 
+	// Draws the circle according to the filled state
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -28,6 +26,7 @@ public class Circle extends Shape {
 		y = getY();
 	}
 
+	// Enables the creation of a circle as Shape
 	@Override
 	public Shape createShape(Color color, boolean isFilled) {
 		Circle circle = new Circle();

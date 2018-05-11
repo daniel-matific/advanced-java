@@ -17,11 +17,13 @@ public class Order {
 		totalPrice = 0;
 		orderDetails = "";
 	}
-	
+
+	// Returns the order details
 	public String getOrderDetails() {
 		return orderDetails;
 	}
-	
+
+	// Generates the order details
 	public String generateOrder(JTabbedPane menuTabs) {
 		for(int i = 0; i < menuTabs.getComponentCount(); i++) {
 			MenuPage menuPage = (MenuPage) ((JScrollPane) menuTabs.getComponent(i)).getViewport().getView();
@@ -30,7 +32,8 @@ public class Order {
 		orderDetails += "\r\nTOTAL PRICE: " + totalPrice;
 		return orderDetails;
 	}
-	
+
+	// Extracts the selected items from the menu page
 	@SuppressWarnings("unchecked")
 	private String extractSelectedFromMenuPage(MenuPage menuPage) {
 		String extractedItems = "";

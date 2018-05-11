@@ -64,31 +64,38 @@ public class ButtonPanel extends JPanel {
 		add(clear);
 		add(exit);
 	}
-	
+
+	// Returns the menu of shapes
 	public JComboBox<Shape> getShapesBox() {
 		return shapesBox;
 	}
-	
+
+	// Returns the menu of colors
 	public JComboBox<MyColor> getColorBox() {
 		return colorBox;
 	}
-	
+
+	// Returns the filled button
 	public JRadioButton getFilledButton() {
 		return filled;
 	}
-	
+
+	// Returns the undo button
 	public JButton getUndo() {
 		return undo;
 	}
-	
+
+	// Returns the clear button
 	public JButton getClear() {
 		return clear;
 	}
-	
+
+	// Returns the exit button
 	public JButton getExit() {
 		return exit;
 	}
-	
+
+	// Returns the paint button
 	public JButton getPaint() {
 		return paint;
 	}

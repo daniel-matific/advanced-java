@@ -11,10 +11,11 @@ public enum MyColor {
 
     private final Color color;
 
-    private MyColor(Color color) {
+    MyColor(Color color) {
         this.color = color;
     }
 
+    // Returns the color
     public Color getColor() {
         return color;
     }

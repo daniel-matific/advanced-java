@@ -30,7 +30,7 @@ public class Menu extends JPanel implements ActionListener {
 	public Menu(File menu) {
 		super(new BorderLayout());
 
-		items = new ArrayList<Item>();
+		items = new ArrayList<>();
 		convertFileToItemList(menu);
 
 		firstCourse = new MenuPage(Category.FIRST_COURSE, items);
@@ -57,6 +57,7 @@ public class Menu extends JPanel implements ActionListener {
 		order = new Order();
 	}
 
+	// Reads the menu file and turns each 3 rows to item in the list
 	private void convertFileToItemList(File menu) {
 		Scanner input = null;
 		try {
@@ -104,11 +105,11 @@ public class Menu extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == orderButton) {
+		if(e.getSource() == orderButton) { // User clicks the order button and shown a pop up with order details
 			String[] options = {"Confirm", "Change", "Cancel"};
 			int choice = JOptionPane.showOptionDialog(this, order.generateOrder(menuTabs), "Order Details", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 			switch(choice) {
-			case 0: 
+			case 0: // User confirms the order, file is created and named according to inserted input
 				String outputFileName = JOptionPane.showInputDialog("Please enter your first name and ID(e.g. Name123456789):");
 				File outputFile = new File(outputFileName + ".txt"); // Default path is the directory of the project
 				BufferedWriter writer = null;
@@ -131,12 +132,12 @@ public class Menu extends JPanel implements ActionListener {
 						}
 					}
 				}
-				resetOrder();
+				resetOrder(); // Program resets for a new order
 				break;
-			case 1:
+			case 1: // User wants to change the order, order details pop up is reset
 				order = new Order();
 				break;
-			case 2:
+			case 2: // User cancels the order or clicks the X button, program is reset
 			case -1:
 				resetOrder();
 				break;
@@ -144,6 +145,7 @@ public class Menu extends JPanel implements ActionListener {
 		}
 	}
 
+	// Reset the program
 	private void resetOrder() {
 		removeAll();
 

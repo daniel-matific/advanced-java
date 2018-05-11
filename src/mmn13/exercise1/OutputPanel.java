@@ -11,9 +11,10 @@ public class OutputPanel extends JPanel {
 	
 	public OutputPanel() {
 		super(new FlowLayout(FlowLayout.LEFT));
-		shapes = new ArrayList<Shape>();
+		shapes = new ArrayList<>();
 	}
-	
+
+	// Returns the list of shapes drawn
 	public ArrayList<Shape> getShapes() {
 		return shapes;
 	}

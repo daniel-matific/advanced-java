@@ -7,10 +7,8 @@ import java.awt.RenderingHints;
 
 @SuppressWarnings("serial")
 public class RoundedRectangle extends Shape {
-	
-	public RoundedRectangle() {
-	}
-	
+
+	// Draws the rounded rectangle according to the filled state
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -26,7 +24,8 @@ public class RoundedRectangle extends Shape {
 		x = getX();
 		y = getY();
 	}
-	
+
+	// Enables the creation of a rounded rectangle as Shape
 	@Override
 	public Shape createShape(Color color, boolean isFilled) {
 		RoundedRectangle roundedRectangle = new RoundedRectangle();

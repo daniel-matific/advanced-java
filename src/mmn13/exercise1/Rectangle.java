@@ -7,10 +7,8 @@ import java.awt.RenderingHints;
 
 @SuppressWarnings("serial")
 public class Rectangle extends Shape {
-	
-	public Rectangle() {
-	}
-	
+
+	// Draws the rectangle according to the filled state
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -27,7 +25,8 @@ public class Rectangle extends Shape {
 		x = getX();
 		y = getY();
 	}
-	
+
+	// Enables the creation of a rectangle as Shape
 	@Override
 	public Shape createShape(Color color, boolean isFilled) {
 		Rectangle rectangle = new Rectangle();

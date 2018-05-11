@@ -7,10 +7,8 @@ import java.awt.RenderingHints;
 
 @SuppressWarnings("serial")
 public class Line extends Shape {
-	
-	public Line() {
-	}
 
+	// Draws a line
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -22,7 +20,8 @@ public class Line extends Shape {
 		x = getX();
 		y = getY();
 	}
-	
+
+	// Enables the creation of a line as Shape
 	@Override
 	public Shape createShape(Color color, boolean isFilled) {
 		Line line = new Line();
