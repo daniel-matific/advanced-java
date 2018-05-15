@@ -27,7 +27,7 @@ public class ServerThread extends Thread {
             input = in.readLine();
             while(input != null)
             {
-                out.println(input);
+                out.println("Server: " + input);
                 input = in.readLine();
             }
             in.close();
