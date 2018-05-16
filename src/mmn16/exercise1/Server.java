@@ -15,12 +15,13 @@ public class Server {
             srv = new ServerSocket(7777);
             //    srv.setSoTimeout(5000);
             System.out.println("Server's ready");
-            Socket socket;
+            Socket socketA, socketB;
 
             while(listening)
             {
-                socket = srv.accept();
-                new ServerThread(socket).start();
+                socketA = srv.accept();
+                socketB = srv.accept();
+                new ServerThread(socketA, socketB).start();
             }
         }
         catch(InterruptedIOException e)

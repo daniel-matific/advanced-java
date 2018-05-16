@@ -8,31 +8,44 @@ import java.net.Socket;
 
 public class ServerThread extends Thread {
 
-    private Socket socket;
-    private PrintWriter out;
-    private BufferedReader in;
+    private Socket clientA, clientB;
+    private PrintWriter clientAOut, clientBOut;
+    private BufferedReader clientAIn, clientBIn;
 
-    public ServerThread(Socket socket) {
-        this.socket = socket;
+    public ServerThread(Socket clientA, Socket clientB) {
+        this.clientA = clientA;
+        this.clientB = clientB;
         try {
-            out = new PrintWriter(socket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            clientAOut = new PrintWriter(clientA.getOutputStream(), true);
+            clientAIn = new BufferedReader(new InputStreamReader(clientA.getInputStream()));
+            clientBOut = new PrintWriter(clientB.getOutputStream(), true);
+            clientBIn = new BufferedReader(new InputStreamReader(clientB.getInputStream()));
         }
         catch(IOException e){ e.printStackTrace(); }
     }
     public void run()
     {
-        String input;
+        String inputA, inputB;
         try {
-            input = in.readLine();
-            while(input != null)
+            inputA = clientAIn.readLine();
+            inputB = clientBIn.readLine();
+            while(inputA != null && inputB != null)
             {
-                out.println("Server: " + input);
-                input = in.readLine();
+                clientAOut.println("Server: " + inputA);
+                clientBOut.println("Server: " + inputB);
+                clientAOut.println("Server: " + inputB);
+                clientBOut.println("Server: " + inputA);
+                inputA = clientAIn.readLine();
+                inputB = clientBIn.readLine();
             }
-            in.close();
-            out.close();
-            socket.close();
+            clientAIn.close();
+            clientAOut.close();
+            clientBIn.close();
+            clientBOut.close();
+            //new ClientThread(clientAOut, clientAIn, clientBOut).start();
+            //new ClientThread(clientBOut, clientBIn, clientAOut).start();
+            clientA.close();
+            clientB.close();
         }
         catch(IOException e) { e.printStackTrace(); }
     }
