@@ -32,9 +32,9 @@ public class ServerThread extends Thread {
             while(inputA != null && inputB != null)
             {
                 clientAOut.println("Server: " + inputA);
+                clientBOut.println("Server: " + inputA);
                 clientBOut.println("Server: " + inputB);
                 clientAOut.println("Server: " + inputB);
-                clientBOut.println("Server: " + inputA);
                 inputA = clientAIn.readLine();
                 inputB = clientBIn.readLine();
             }

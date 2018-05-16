@@ -23,10 +23,11 @@ public class Client {
 
             System.out.println("After connection");
             String s = JOptionPane.showInputDialog(null, "Enter a string to send:");
+            new ClientThread(in).start();
             while(s != null)
             {
                 out.println(s);
-                System.out.println( in.readLine());
+                //System.out.println( in.readLine());
                 s = JOptionPane.showInputDialog(null, "Enter a string to send:");
             }
 

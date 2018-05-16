@@ -10,14 +10,14 @@ public class Server {
     public static void main(String[] args)
     {
         ServerSocket srv;
-        boolean listening = true;
+        //boolean listening = true;
         try {
             srv = new ServerSocket(7777);
             //    srv.setSoTimeout(5000);
             System.out.println("Server's ready");
             Socket socketA, socketB;
 
-            while(listening)
+            while(true)
             {
                 socketA = srv.accept();
                 socketB = srv.accept();
