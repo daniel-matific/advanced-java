@@ -1,16 +1,17 @@
 package mmn16.exercise1_try2;
-import java.io.*;
-import java.net.*;
-import java.awt.*;
-import java.awt.event.*;
+
 import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Server extends JFrame {
 
     private JTextField userText;
     private JTextArea chatWindow;
-    private ObjectOutputStream output;
-    private ObjectInputStream input;
+    private PrintWriter output;
+    private BufferedReader input;
     private ServerSocket server;
     private Socket connection;
 
@@ -22,18 +23,15 @@ public class Server extends JFrame {
 
     //constructor
     public Server(){
-        super("Buckys Instant Messenger");
+        super("Server");
         userText = new JTextField();
         userText.setEditable(false);
-        userText.addActionListener(
-                new ActionListener(){
-                    public void actionPerformed(ActionEvent event){
-                        sendMessage(event.getActionCommand());
-                        userText.setText("");
-                    }
+        userText.addActionListener(event -> {
+                    sendMessage(event.getActionCommand());
+                    userText.setText("");
                 }
         );
-        add(userText, BorderLayout.NORTH);
+        add(userText, BorderLayout.SOUTH);
         chatWindow = new JTextArea();
         add(new JScrollPane(chatWindow));
         setSize(300, 150); //Sets the window size
@@ -68,11 +66,8 @@ public class Server extends JFrame {
 
     //get stream to send and receive data
     private void setupStreams() throws IOException{
-        output = new ObjectOutputStream(connection.getOutputStream());
-        output.flush();
-
-        input = new ObjectInputStream(connection.getInputStream());
-
+        output = new PrintWriter(connection.getOutputStream(), true);
+        input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         showMessage("\n Streams are now setup \n");
     }
 
@@ -82,12 +77,8 @@ public class Server extends JFrame {
         sendMessage(message);
         ableToType(true);
         do{
-            try{
-                message = (String) input.readObject();
-                showMessage("\n" + message);
-            }catch(ClassNotFoundException classNotFoundException){
-                showMessage("The user has sent an unknown object!");
-            }
+            message = input.readLine();
+            showMessage("\n" + message);
         }while(!message.equals("CLIENT - END"));
     }
 
@@ -103,35 +94,18 @@ public class Server extends JFrame {
         }
     }
 
-    //Send a mesage to the client
+    //Send a message to the client
     private void sendMessage(String message){
-        try{
-            output.writeObject("SERVER - " + message);
-            output.flush();
-            showMessage("\nSERVER -" + message);
-        }catch(IOException ioException){
-            chatWindow.append("\n ERROR: CANNOT SEND MESSAGE, PLEASE RETRY");
-        }
+        output.println("SERVER - " + message);
+        showMessage("\nSERVER -" + message);
     }
 
     //update chatWindow
     private void showMessage(final String text){
-        SwingUtilities.invokeLater(
-                new Runnable(){
-                    public void run(){
-                        chatWindow.append(text);
-                    }
-                }
-        );
+        SwingUtilities.invokeLater(() -> chatWindow.append(text));
     }
 
     private void ableToType(final boolean tof){
-        SwingUtilities.invokeLater(
-                new Runnable(){
-                    public void run(){
-                        userText.setEditable(tof);
-                    }
-                }
-        );
+        SwingUtilities.invokeLater(() -> userText.setEditable(tof));
     }
 }

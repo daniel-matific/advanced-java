@@ -1,25 +1,24 @@
 package mmn16.exercise1_try2;
 
-import java.io.*;
-import java.net.*;
-import java.awt.*;
-import java.awt.event.*;
-
 import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+import java.net.InetAddress;
+import java.net.Socket;
 
 public class Client extends JFrame{
 
     private JTextField userText;
     private JTextArea chatWindow;
-    private ObjectOutputStream output;
-    private ObjectInputStream input;
+    private PrintWriter output;
+    private BufferedReader input;
     private String message = "";
     private String serverIP;
     private Socket connection;
 
     public static void main(String[] args) {
         Client charlie;
-        charlie = new Client("127.0.0.1");
+        charlie = new Client("localhost");
         charlie.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         charlie.startRunning();
     }
@@ -30,15 +29,12 @@ public class Client extends JFrame{
         serverIP = host;
         userText = new JTextField();
         userText.setEditable(false);
-        userText.addActionListener(
-                new ActionListener(){
-                    public void actionPerformed(ActionEvent event){
-                        sendMessage(event.getActionCommand());
-                        userText.setText("");
-                    }
+        userText.addActionListener(event -> {
+                    sendMessage(event.getActionCommand());
+                    userText.setText("");
                 }
         );
-        add(userText, BorderLayout.NORTH);
+        add(userText, BorderLayout.SOUTH);
         chatWindow = new JTextArea();
         add(new JScrollPane(chatWindow));
         setSize(300, 150); //Sets the window size
@@ -69,9 +65,8 @@ public class Client extends JFrame{
 
     //set up streams
     private void setupStreams() throws IOException{
-        output = new ObjectOutputStream(connection.getOutputStream());
-        output.flush();
-        input = new ObjectInputStream(connection.getInputStream());
+        output = new PrintWriter(connection.getOutputStream(), true);
+        input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         showMessage("\n The streams are now set up! \n");
     }
 
@@ -79,12 +74,8 @@ public class Client extends JFrame{
     private void whileChatting() throws IOException{
         ableToType(true);
         do{
-            try{
-                message = (String) input.readObject();
-                showMessage("\n" + message);
-            }catch(ClassNotFoundException classNotFoundException){
-                showMessage("Unknown data received!");
-            }
+            message = input.readLine();
+            showMessage("\n" + message);
         }while(!message.equals("SERVER - END"));
     }
 
@@ -103,34 +94,17 @@ public class Client extends JFrame{
 
     //send message to server
     private void sendMessage(String message){
-        try{
-            output.writeObject("CLIENT - " + message);
-            output.flush();
-            showMessage("\nCLIENT - " + message);
-        }catch(IOException ioException){
-            chatWindow.append("\n Oops! Something went wrong!");
-        }
+        output.println("CLIENT - " + message);
+        showMessage("\nCLIENT - " + message);
     }
 
     //update chat window
     private void showMessage(final String message){
-        SwingUtilities.invokeLater(
-                new Runnable(){
-                    public void run(){
-                        chatWindow.append(message);
-                    }
-                }
-        );
+        SwingUtilities.invokeLater(() -> chatWindow.append(message));
     }
 
     //allows user to type
     private void ableToType(final boolean tof){
-        SwingUtilities.invokeLater(
-                new Runnable(){
-                    public void run(){
-                        userText.setEditable(tof);
-                    }
-                }
-        );
+        SwingUtilities.invokeLater(() -> userText.setEditable(tof));
     }
 }
