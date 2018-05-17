@@ -1,90 +1,92 @@
 package mmn16.exercise1_try2;
 
-import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
+import java.util.concurrent.CountDownLatch;
 
 public class ServerThread extends Thread {
 
-    private PrintWriter output;
-    private BufferedReader input;
-
+    private PrintWriter outputA, outputB;
+    private BufferedReader inputA, inputB;
     private Socket connectionA, connectionB;
+    private CountDownLatch doneSignal;
+    private boolean aTerminate, bTerminate;
 
-    //constructor
     public ServerThread(Socket connectionA, Socket connectionB){
         this.connectionA = connectionA;
         this.connectionB = connectionB;
+        aTerminate = bTerminate = false;
     }
 
     public void run(){
         try{
+            outputA = new PrintWriter(connectionA.getOutputStream(), true);
+            inputA = new BufferedReader(new InputStreamReader(connectionA.getInputStream()));
+            outputB = new PrintWriter(connectionB.getOutputStream(), true);
+            inputB = new BufferedReader(new InputStreamReader(connectionB.getInputStream()));
 
-            while(true){
-                try{
-                    //Trying to connect and have conversation
-                    //waitForConnection();
-                    setupStreams();
-                    whileChatting();
-                }catch(EOFException eofException){
-                    showMessage("\n Server ended the connection! ");
-                } finally{
-                    closeConnection(); //Changed the name to something more appropriate
-                }
+            serverMessage("You can start chatting !");
+
+            while(!aTerminate && !bTerminate) {
+                doneSignal = new CountDownLatch(1);
+                new Thread(() -> {
+                    try {
+                        String message = inputA.readLine();
+                        if(message.equals("END")) {
+                            aTerminate = true;
+                        }
+                        sendMessage(message, true);
+                        doneSignal.countDown();
+                    } catch (IOException e) {}
+                }).start();
+                new Thread(() -> {
+                    try {
+                        String message = inputB.readLine();
+                        if(message.equals("END")) {
+                            bTerminate = true;
+                        }
+                        sendMessage(message, false);
+                        doneSignal.countDown();
+                    } catch (IOException e) {}
+                }).start();
+                doneSignal.await();
             }
-        } catch (IOException ioException){
-            ioException.printStackTrace();
+
+            if(aTerminate) {
+                outputB.println("The other client has terminated the chat.");
+            }
+            else {
+                outputA.println("The other client has terminated the chat.");
+            }
+
+            outputA.close();
+            inputA.close();
+            connectionA.close();
+            outputB.close();
+            inputB.close();
+            connectionB.close();
         }
-    }
-    //wait for connection, then display connection information
-    /*private void waitForConnection() throws IOException{
-        showMessage(" Waiting for someone to connect... \n");
-        connectionA = server.accept();
-        showMessage(" Now connected to " + connectionA.getInetAddress().getHostName());
-    }*/
-
-    //get stream to send and receive data
-    private void setupStreams() throws IOException{
-        output = new PrintWriter(connectionA.getOutputStream(), true);
-        input = new BufferedReader(new InputStreamReader(connectionA.getInputStream()));
-        showMessage("\n Streams are now setup \n");
+        catch(EOFException eofException){}
+        catch (InterruptedException e) {}
+        catch (IOException ioException) {}
     }
 
-    //during the chat conversation
-    private void whileChatting() throws IOException{
-        String message = " You are now connected! ";
-        sendMessage(message);
-        ableToType(true);
-        do{
-            message = input.readLine();
-            showMessage("\n" + message);
-        }while(!message.equals("CLIENT - END"));
-    }
-
-    public void closeConnection(){
-        showMessage("\n Closing Connections... \n");
-        ableToType(false);
-        try{
-            output.close(); //Closes the output path to the client
-            input.close(); //Closes the input path to the server, from the client.
-            connectionA.close(); //Closes the connection between you can the client
-        }catch(IOException ioException){
-            ioException.printStackTrace();
+    //Send the message to the clients
+    private void sendMessage(String message, boolean sentFromA){
+        if(sentFromA) {
+            outputA.println("Me: " + message);
+            outputB.println("You: " + message);
+        }
+        else {
+            outputA.println("You: " + message);
+            outputB.println("Me: " + message);
         }
     }
 
-    //Send a message to the client
-    private void sendMessage(String message){
-        output.println("SERVER - " + message);
-        showMessage("\nSERVER -" + message);
+    //server messages
+    private void serverMessage(String message) {
+        outputA.println("SERVER: " + message);
+        outputB.println("SERVER: " + message);
     }
 
-    //update chatWindow
-    private void showMessage(final String text){
-        SwingUtilities.invokeLater(() -> chatWindow.append(text));
-    }
-
-    private void ableToType(final boolean tof){
-        SwingUtilities.invokeLater(() -> userText.setEditable(tof));
-    }
 }

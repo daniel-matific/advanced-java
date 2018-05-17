@@ -10,10 +10,13 @@ public class Server {
         ServerSocket server;
         try {
             server = new ServerSocket(7777);
+            System.out.println("Server is up and running...");
             Socket connectionA, connectionB;
-            connectionA = server.accept();
-            connectionB = server.accept();
-            new ServerThread(connectionA, connectionB).start();
+            while(true) {
+                connectionA = server.accept();
+                connectionB = server.accept();
+                new ServerThread(connectionA, connectionB).start();
+            }
         } catch(IOException e) {}
 
     }

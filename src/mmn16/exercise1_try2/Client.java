@@ -6,105 +6,89 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
-public class Client extends JFrame{
+public class Client extends JFrame {
 
     private JTextField userText;
     private JTextArea chatWindow;
+    private JPanel buttonPanel;
+    private JButton connect, disconnect;
     private PrintWriter output;
     private BufferedReader input;
     private String message = "";
+    private boolean terminate;
     private String serverIP;
+    private int port;
     private Socket connection;
 
     public static void main(String[] args) {
-        Client charlie;
-        charlie = new Client("localhost");
-        charlie.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        charlie.startRunning();
+        Client client;
+        client = new Client();
+        client.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    //constructor
-    public Client(String host){
+    public Client(){
         super("Client");
-        serverIP = host;
+        terminate = false;
         userText = new JTextField();
-        userText.setEditable(false);
         userText.addActionListener(event -> {
-                    sendMessage(event.getActionCommand());
+                    output.println(event.getActionCommand());
                     userText.setText("");
                 }
         );
         add(userText, BorderLayout.SOUTH);
         chatWindow = new JTextArea();
-        add(new JScrollPane(chatWindow));
-        setSize(300, 150); //Sets the window size
+        chatWindow.setEditable(false);
+        add(new JScrollPane(chatWindow), BorderLayout.CENTER);
+        buttonPanel = new JPanel(new GridLayout(2,1));
+        connect = new JButton("Connect");
+        connect.setBackground(Color.GREEN);
+        connect.addActionListener(event -> {
+                    new Thread(() -> {
+                    serverIP = JOptionPane.showInputDialog(null, "Please enter server IP:");
+                    port = Integer.parseInt(JOptionPane.showInputDialog(null, "Please enter server port:"));
+                    startRunning(); }).start();
+                }
+        );
+        disconnect = new JButton("Disconnect");
+        disconnect.setBackground(Color.RED);
+        disconnect.addActionListener(event -> {
+                    terminate = true;
+                }
+        );
+        buttonPanel.add(connect);
+        buttonPanel.add(disconnect);
+        add(buttonPanel, BorderLayout.EAST);
+        setSize(300, 150);
         setVisible(true);
+        userText.requestFocusInWindow();
     }
 
-    //connect to server
     public void startRunning(){
         try{
-            connectToServer();
-            setupStreams();
-            whileChatting();
-        }catch(EOFException eofException){
-            showMessage("\n Client terminated the connection");
-        }catch(IOException ioException){
-            ioException.printStackTrace();
-        }finally{
-            closeConnection();
-        }
-    }
+            connection = new Socket(InetAddress.getByName(serverIP), port);
+            showMessage("Connected to: " + connection.getInetAddress().getHostName());
+            output = new PrintWriter(connection.getOutputStream(), true);
+            input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-    //connect to server
-    private void connectToServer() throws IOException{
-        showMessage("Attempting connection... \n");
-        connection = new Socket(InetAddress.getByName(serverIP), 7777);
-        showMessage("Connection Established! Connected to: " + connection.getInetAddress().getHostName());
-    }
+            while(!terminate) {
+                message = input.readLine();
+                showMessage("\n" + message);
+            }
 
-    //set up streams
-    private void setupStreams() throws IOException{
-        output = new PrintWriter(connection.getOutputStream(), true);
-        input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        showMessage("\n The streams are now set up! \n");
-    }
+            output.println("END");
 
-    //while chatting with server
-    private void whileChatting() throws IOException{
-        ableToType(true);
-        do{
-            message = input.readLine();
-            showMessage("\n" + message);
-        }while(!message.equals("SERVER - END"));
-    }
-
-    //Close connection
-    private void closeConnection(){
-        showMessage("\n Closing the connection!");
-        ableToType(false);
-        try{
             output.close();
             input.close();
             connection.close();
-        }catch(IOException ioException){
-            ioException.printStackTrace();
         }
-    }
-
-    //send message to server
-    private void sendMessage(String message){
-        output.println("CLIENT - " + message);
-        showMessage("\nCLIENT - " + message);
+        catch(EOFException eofException){
+            showMessage("\nClient terminated the connection");
+        }
+        catch(IOException ioException){}
     }
 
     //update chat window
     private void showMessage(final String message){
         SwingUtilities.invokeLater(() -> chatWindow.append(message));
-    }
-
-    //allows user to type
-    private void ableToType(final boolean tof){
-        SwingUtilities.invokeLater(() -> userText.setEditable(tof));
     }
 }
