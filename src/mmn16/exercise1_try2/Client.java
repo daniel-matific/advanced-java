@@ -52,7 +52,7 @@ public class Client extends JFrame {
             }}).start()
         );
         disconnect = new JButton("Disconnect");
-        disconnect.setBackground(Color.RED);
+        disconnect.setBackground(new Color(215, 0, 0));
         disconnect.addActionListener(event -> {
                     try {
                         output.close();
