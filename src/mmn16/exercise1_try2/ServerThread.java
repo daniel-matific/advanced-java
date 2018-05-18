@@ -32,20 +32,24 @@ public class ServerThread extends Thread {
                 new Thread(() -> {
                     try {
                         String message = inputA.readLine();
-                        if(message.equals("END")) {
+                        if(message == null) {
                             aTerminate = true;
                         }
-                        sendMessage(message, true);
+                        else {
+                            sendMessage(message, true);
+                        }
                         doneSignal.countDown();
                     } catch (IOException e) {}
                 }).start();
                 new Thread(() -> {
                     try {
                         String message = inputB.readLine();
-                        if(message.equals("END")) {
+                        if(message == null) {
                             bTerminate = true;
                         }
-                        sendMessage(message, false);
+                        else {
+                            sendMessage(message, false);
+                        }
                         doneSignal.countDown();
                     } catch (IOException e) {}
                 }).start();
