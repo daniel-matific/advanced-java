@@ -70,9 +70,7 @@ public class ServerThread extends Thread {
             inputB.close();
             connectionB.close();
         }
-        catch(EOFException eofException){}
-        catch (InterruptedException e) {}
-        catch (IOException ioException) {}
+        catch(InterruptedException | IOException eofException){}
     }
 
     //Send the message to the clients

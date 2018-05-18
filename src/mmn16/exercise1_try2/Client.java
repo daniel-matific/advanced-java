@@ -15,7 +15,6 @@ public class Client extends JFrame {
     private JButton connect, disconnect;
     private PrintWriter output;
     private BufferedReader input;
-    private String message = "";
     private String serverIP;
     private int port;
     private Socket connection;
@@ -74,7 +73,7 @@ public class Client extends JFrame {
         userText.requestFocusInWindow();
     }
 
-    public void startRunning(){
+    private void startRunning(){
         try{
             connect.setEnabled(false);
             connection = new Socket(InetAddress.getByName(serverIP), port);
@@ -99,14 +98,7 @@ public class Client extends JFrame {
                 }).start();
                 doneSignal.await();
             }
-        }
-        catch(EOFException eofException){System.out.println("eof");}
-        catch(IOException ioException){
-            System.out.println("io");
-        }
-        catch(InterruptedException e) {}
-        catch(NullPointerException nullPointerException){
-            System.out.println("nullpo");}
+        } catch(IOException | InterruptedException ioException){}
     }
 
     //update chat window
