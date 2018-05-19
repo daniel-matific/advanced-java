@@ -11,7 +11,6 @@ public class Client extends JFrame {
 
     private JTextField userText;
     private JTextArea chatWindow;
-    private JPanel buttonPanel;
     private JButton connect, disconnect;
     private PrintWriter output;
     private BufferedReader input;
@@ -23,9 +22,10 @@ public class Client extends JFrame {
     public static void main(String[] args) {
         Client client;
         client = new Client();
-        client.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        client.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
+    // constructs the ui and handles the events that happen when pressing the buttons
     public Client(){
         super("Client");
         userText = new JTextField();
@@ -38,7 +38,7 @@ public class Client extends JFrame {
         chatWindow = new JTextArea();
         chatWindow.setEditable(false);
         add(new JScrollPane(chatWindow), BorderLayout.CENTER);
-        buttonPanel = new JPanel(new GridLayout(2,1));
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
         connect = new JButton("Connect");
         connect.setBackground(Color.GREEN);
         connect.addActionListener(event -> new Thread(() -> {
@@ -48,7 +48,7 @@ public class Client extends JFrame {
                 startRunning();
             }
             catch(NumberFormatException numberFormatException) {
-                JOptionPane.showMessageDialog(null, "Port must be a number!");
+                showMessage("\nPort must be a number!");
             }}).start()
         );
         disconnect = new JButton("Disconnect");
@@ -59,9 +59,10 @@ public class Client extends JFrame {
                         input.close();
                         connection.close();
                         disconnect.setEnabled(false);
+                    }
+                    catch (IOException e) {
                         showMessage("\nConnection terminated.");
                     }
-                    catch (IOException ioException) {}
                 }
         );
         disconnect.setEnabled(false);
@@ -73,6 +74,7 @@ public class Client extends JFrame {
         userText.requestFocusInWindow();
     }
 
+    // handles creation of socket, streams and the data coming from the server
     private void startRunning(){
         try{
             connect.setEnabled(false);
@@ -94,14 +96,26 @@ public class Client extends JFrame {
                             disconnect.doClick();
                         }
                         doneSignal.countDown();
-                    } catch (IOException e) {}
+                    } catch(IOException e) {
+                        showMessage("\nI/O Exception occurred.");
+                    }
                 }).start();
                 doneSignal.await();
             }
-        } catch(IOException | InterruptedException ioException){}
+        } catch(IOException  e){
+            showMessage("\nI/O Exception occurred.");
+            connect.setEnabled(true);
+        }
+        catch(InterruptedException e) {
+            showMessage("\nThread was interrupted.");
+        }
+        catch(IllegalArgumentException e) {
+            showMessage("\nPort number must be between 0 and 65535.");
+            connect.setEnabled(true);
+        }
     }
 
-    //update chat window
+    // update chat window
     private void showMessage(final String message){
         SwingUtilities.invokeLater(() -> chatWindow.append(message));
     }

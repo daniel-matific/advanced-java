@@ -18,6 +18,7 @@ public class ServerThread extends Thread {
         aTerminate = bTerminate = false;
     }
 
+    // handles creation of socket, streams and the actual input transfer from one client to the other and vice versa
     public void run(){
         try{
             outputA = new PrintWriter(connectionA.getOutputStream(), true);
@@ -39,7 +40,9 @@ public class ServerThread extends Thread {
                             sendMessage(message, true);
                         }
                         doneSignal.countDown();
-                    } catch (IOException e) {}
+                    } catch (IOException e) {
+                        serverMessage("\nThread was interrupted.");
+                    }
                 }).start();
                 new Thread(() -> {
                     try {
@@ -51,7 +54,9 @@ public class ServerThread extends Thread {
                             sendMessage(message, false);
                         }
                         doneSignal.countDown();
-                    } catch (IOException e) {}
+                    } catch (IOException e) {
+                        serverMessage("\nThread was interrupted.");
+                    }
                 }).start();
                 doneSignal.await();
             }
@@ -70,10 +75,15 @@ public class ServerThread extends Thread {
             inputB.close();
             connectionB.close();
         }
-        catch(InterruptedException | IOException eofException){}
+        catch(IOException e){
+            serverMessage("\nI/O Exception occurred.");
+        }
+        catch(InterruptedException e) {
+            serverMessage("\nThread was interrupted.");
+        }
     }
 
-    //Send the message to the clients
+    // send the message to the clients
     private void sendMessage(String message, boolean sentFromA){
         if(sentFromA) {
             outputA.println("Me: " + message);
@@ -85,7 +95,7 @@ public class ServerThread extends Thread {
         }
     }
 
-    //server messages
+    // server messages
     private void serverMessage(String message) {
         outputA.println("SERVER: " + message);
         outputB.println("SERVER: " + message);

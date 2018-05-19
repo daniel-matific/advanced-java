@@ -17,7 +17,9 @@ public class Server {
                 connectionB = server.accept();
                 new ServerThread(connectionA, connectionB).start();
             }
-        } catch(IOException e) {}
+        } catch(IOException e) {
+            System.out.println("I/O Exception occurred.");
+        }
 
     }
 }
