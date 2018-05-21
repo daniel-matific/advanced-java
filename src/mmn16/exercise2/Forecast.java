@@ -54,4 +54,9 @@ public class Forecast {
     public void setRainStatus(String rainStatus) {
         this.rainStatus = rainStatus;
     }
+
+    @Override
+    public String toString() {
+        return day + " in " + city + " will be " + degrees + " degrees, " + cloudStatus + " and " + rainStatus;
+    }
 }

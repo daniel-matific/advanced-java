@@ -10,33 +10,37 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Server {
+public class Server extends JFrame {
 
-    private static ArrayList<Forecast> forecastDatabase;
+    private ArrayList<Forecast> forecastDatabase;
+
+    public Server() {
+        forecastDatabase = new ArrayList<>();
+    }
 
     public static void main(String[] args)
     {
-        /*try{
+        Server server = new Server();
+        File forecast = new File("forecast.txt");
+        server.convertFileToForecast(forecast);
+        try{
             DatagramSocket socket = new DatagramSocket(7777);
             System.out.println("Server's Ready");
-            byte[] buf = new byte[256];
-            DatagramPacket packet = new DatagramPacket(buf, buf.length);
+            byte[] buffer = new byte[256];
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
             socket.receive(packet);
-            String response = "Hello";
-            buf = response.getBytes();
+            String response = server.analyzeRequest(new String(packet.getData(), 0, packet.getData().length));
+            buffer = response.getBytes();
             InetAddress address = packet.getAddress();
             int port = packet.getPort();
-            packet = new DatagramPacket(buf, buf.length, address, port);
+            packet = new DatagramPacket(buffer, buffer.length, address, port);
             socket.send(packet);
         }
-        catch(IOException e){}*/
-        forecastDatabase = new ArrayList<>();
-        File forecast = new File("forecast.txt");
-        convertFileToForecast(forecast);
+        catch(IOException e){}
     }
 
     // Reads the menu file and turns each 3 rows to item in the list
-    private static void convertFileToForecast(File forecastFile) {
+    private void convertFileToForecast(File forecastFile) {
         String[] splitInput;
         Scanner input = null;
         try {
@@ -53,5 +57,18 @@ public class Server {
                 input.close();
             }
         }
+    }
+
+    // Analyzes the packet from Client
+    private String analyzeRequest(String request) {
+        String result = "", city;
+        request = request.substring(0, request.indexOf('\0'));
+        for(Forecast forecast : forecastDatabase) {
+            city = forecast.getCity();
+            if(city.equals(request)) {
+                result += forecast.toString() + "\n";
+            }
+        }
+        return result;
     }
 }

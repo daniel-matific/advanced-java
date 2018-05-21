@@ -1,0 +1,12 @@
+Paris/Today/23/Cloudy/No Rain
+Paris/Tomorrow/21/Clear Sky/No Rain
+Paris/Day After Tomorrow/19/Cloudy/Rainy
+London/Today/23/Cloudy/No Rain
+London/Tomorrow/21/Clear Sky/No Rain
+London/Day After Tomorrow/19/Cloudy/Rainy
+Berlin/Today/23/Cloudy/No Rain
+Berlin/Tomorrow/21/Clear Sky/No Rain
+Berlin/Day After Tomorrow/19/Cloudy/Rainy
+Rome/Today/23/Cloudy/No Rain
+Rome/Tomorrow/21/Clear Sky/No Rain
+Rome/Day After Tomorrow/19/Cloudy/Rainy
