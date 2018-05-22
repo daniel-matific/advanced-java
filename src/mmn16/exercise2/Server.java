@@ -13,19 +13,21 @@ import java.util.Scanner;
 public class Server extends JFrame {
 
     private ArrayList<Forecast> forecastDatabase;
+    private JButton refresh;
+    private File forecast = new File("forecast.txt");
 
     public Server() {
-        forecastDatabase = new ArrayList<>();
+        super("Server");
+        convertFileToForecast(forecast);
+        refresh = new JButton("Send");
+        refresh.addActionListener(event -> convertFileToForecast(forecast));
     }
 
     public static void main(String[] args)
     {
         Server server = new Server();
-        File forecast = new File("forecast.txt");
-        server.convertFileToForecast(forecast);
         try{
             DatagramSocket socket = new DatagramSocket(7777);
-            System.out.println("Server's Ready");
             byte[] buffer = new byte[256];
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
             socket.receive(packet);
@@ -36,11 +38,13 @@ public class Server extends JFrame {
             packet = new DatagramPacket(buffer, buffer.length, address, port);
             socket.send(packet);
         }
-        catch(IOException e){}
+        catch(IOException e){
+            JOptionPane.showMessageDialog(null, "I/O Exception occurred.");
+        }
     }
 
-    // Reads the menu file and turns each 3 rows to item in the list
     private void convertFileToForecast(File forecastFile) {
+        forecastDatabase = new ArrayList<>();
         String[] splitInput;
         Scanner input = null;
         try {
@@ -61,14 +65,15 @@ public class Server extends JFrame {
 
     // Analyzes the packet from Client
     private String analyzeRequest(String request) {
-        String result = "", city;
+        StringBuilder result = new StringBuilder();
+        String city;
         request = request.substring(0, request.indexOf('\0'));
         for(Forecast forecast : forecastDatabase) {
             city = forecast.getCity();
             if(city.equals(request)) {
-                result += forecast.toString() + "\n";
+                result.append(forecast.toString()).append("\n");
             }
         }
-        return result;
+        return result.toString();
     }
 }

@@ -23,8 +23,7 @@ public class Client extends JFrame {
     private CountDownLatch doneSignal;
 
     public static void main(String[] args) {
-        Client client;
-        client = new Client();
+        Client client = new Client();
         client.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 

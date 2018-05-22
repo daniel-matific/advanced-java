@@ -19,42 +19,6 @@ public class Forecast {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getDay() {
-        return day;
-    }
-
-    public void setDay(String day) {
-        this.day = day;
-    }
-
-    public int getDegrees() {
-        return degrees;
-    }
-
-    public void setDegrees(int degrees) {
-        this.degrees = degrees;
-    }
-
-    public String getCloudStatus() {
-        return cloudStatus;
-    }
-
-    public void setCloudStatus(String cloudStatus) {
-        this.cloudStatus = cloudStatus;
-    }
-
-    public String getRainStatus() {
-        return rainStatus;
-    }
-
-    public void setRainStatus(String rainStatus) {
-        this.rainStatus = rainStatus;
-    }
-
     @Override
     public String toString() {
         return day + " in " + city + " will be " + degrees + " degrees, " + cloudStatus + " and " + rainStatus;
