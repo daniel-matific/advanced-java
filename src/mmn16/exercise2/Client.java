@@ -20,7 +20,7 @@ public class Client {
             p = new DatagramPacket(buffer, buffer.length);
             socket.receive(p);
             String data = new String(p.getData(), 0, p.getLength());
-            System.out.println("Server:" + data);
+            System.out.println(data);
         }
         catch(IOException e){}
     }
