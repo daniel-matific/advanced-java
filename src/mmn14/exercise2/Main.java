@@ -1,15 +1,16 @@
 package mmn14.exercise2;
 
-import mmn14.exercise2.Vehicle.LeesingVehicle;
+import mmn14.exercise2.Vehicle.LeasingVehicle;
 import mmn14.exercise2.Vehicle.PrivateVehicle;
 
 public class Main {
 
 	public static void main(String[] args) {
 		PrivateVehicle vehicle1 = new PrivateVehicle("1", "Mercedes", 2015, "No comment", "Bob");
+		PrivateVehicle vehicle1Duplicate = new PrivateVehicle("1", "Mercedes", 2015, "No comment", "Bob");
 		PrivateVehicle vehicle2 = new PrivateVehicle("2", "Toyota", 2011, "No comment", "George");
-		LeesingVehicle vehicle3 = new LeesingVehicle("3", "Subaro", 2016, "No comment", "Leesing is Cool", "Leon");
-		LeesingVehicle vehicle4 = new LeesingVehicle("4", "Kia", 2010, "No comment", "Leesio", "Abraham");
+		LeasingVehicle vehicle3 = new LeasingVehicle("3", "Subaru", 2016, "No comment", "Leasing is Cool", "Leon");
+		LeasingVehicle vehicle4 = new LeasingVehicle("4", "Kia", 2010, "No comment", "Leasio", "Abraham");
 		Garage<Vehicle> garage = new Garage<>(4);
 		System.out.println("Starting the work day, let's work!\n");
 		if(garage.work() == null) {
@@ -17,6 +18,7 @@ public class Main {
 		}
 		System.out.println("Adding to Garage Vehicle \"1\", Vehicle \"2\", Vehicle \"3\" and Vehicle \"4\".\n");
 		garage.add(vehicle1);
+		garage.add(vehicle1Duplicate);
 		garage.add(vehicle2);
 		garage.add(vehicle3);
 		garage.add(vehicle4);

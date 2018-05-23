@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 
 @SuppressWarnings("serial")
 public class Garage<V extends Vehicle> extends LinkedList<V> {
+
 	private int garageCapacity;
 
 	public Garage(int garageCapacity) {
@@ -22,6 +23,22 @@ public class Garage<V extends Vehicle> extends LinkedList<V> {
 			System.out.println(e.getMessage());
 			return false;
 		}
+
+		ListIterator<V> listIterator = listIterator();
+		while (listIterator.hasNext()) {
+			int index = listIterator.nextIndex();
+			V existingVehicle = listIterator.next();
+			try {
+				if (existingVehicle.getLicense().equals(vehicle.getLicense())) {
+					throw new VehicleAlreadyExistsException();
+				}
+			}
+			catch(VehicleAlreadyExistsException e) {
+				System.out.println(e.getMessage());
+				return false;
+			}
+		}
+
 		super.add(vehicle);
 		return true;
 	}

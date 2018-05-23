@@ -51,8 +51,8 @@ public abstract class Vehicle {
 		if(this instanceof PrivateVehicle) {
 			return "Vehicle license: " + license + ", Type: " + vehicleType + ", Manufacture Year: " + manufactureYear + ", Comment: " + comment + ", Owner: " + ((PrivateVehicle)this).getOwnerName() + ".\n";
 		}
-		else if(this instanceof LeesingVehicle) {
-			return "Vehicle license: " + license + ", Type: " + vehicleType + ", Manufacture Year: " + manufactureYear + ", Comment: " + comment + ", Company: " + ((LeesingVehicle)this).getCompanyName() + ", Worker: " + ((LeesingVehicle)this).getWorkerName() + ".\n";
+		else if(this instanceof LeasingVehicle) {
+			return "Vehicle license: " + license + ", Type: " + vehicleType + ", Manufacture Year: " + manufactureYear + ", Comment: " + comment + ", Company: " + ((LeasingVehicle)this).getCompanyName() + ", Worker: " + ((LeasingVehicle)this).getWorkerName() + ".\n";
 		}
 		return "Vehicle license: " + license + ", Type: " + vehicleType + ", Manufacture Year: " + manufactureYear + ", Comment: " + comment + ".\n";
 	}
@@ -76,12 +76,12 @@ public abstract class Vehicle {
 		
 	}
 	
-	public static class LeesingVehicle extends Vehicle {
+	public static class LeasingVehicle extends Vehicle {
 		
 		private String companyName;
 		private String workerName;
 
-		public LeesingVehicle(String license, String vehicleType, int manufactureYear, String comment, String companyName, String workerName) {
+		public LeasingVehicle(String license, String vehicleType, int manufactureYear, String comment, String companyName, String workerName) {
 			super(license, vehicleType, manufactureYear, comment);
 			this.companyName = companyName;
 			this.workerName = workerName;
