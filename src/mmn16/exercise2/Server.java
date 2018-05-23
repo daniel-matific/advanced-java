@@ -16,31 +16,35 @@ public class Server extends JFrame {
     private JButton refresh;
     private File forecast = new File("forecast.txt");
 
-    public Server() {
-        super("Server");
-        convertFileToForecast(forecast);
-        refresh = new JButton("Send");
-        refresh.addActionListener(event -> convertFileToForecast(forecast));
-    }
-
     public static void main(String[] args)
     {
         Server server = new Server();
+        server.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         try{
             DatagramSocket socket = new DatagramSocket(7777);
-            byte[] buffer = new byte[256];
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-            socket.receive(packet);
-            String response = server.analyzeRequest(new String(packet.getData(), 0, packet.getData().length));
-            buffer = response.getBytes();
-            InetAddress address = packet.getAddress();
-            int port = packet.getPort();
-            packet = new DatagramPacket(buffer, buffer.length, address, port);
-            socket.send(packet);
+            while(true) {
+                byte[] buffer = new byte[256];
+                DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+                socket.receive(packet);
+                String response = server.analyzeRequest(new String(packet.getData(), 0, packet.getData().length));
+                buffer = response.getBytes();
+                packet = new DatagramPacket(buffer, buffer.length, packet.getAddress(), packet.getPort());
+                socket.send(packet);
+            }
         }
         catch(IOException e){
             JOptionPane.showMessageDialog(null, "I/O Exception occurred.");
         }
+    }
+
+    public Server() {
+        super("Server");
+        convertFileToForecast(forecast);
+        refresh = new JButton("Refresh Data");
+        refresh.addActionListener(event -> convertFileToForecast(forecast));
+        add(refresh);
+        setSize(200, 150);
+        setVisible(true);
     }
 
     private void convertFileToForecast(File forecastFile) {

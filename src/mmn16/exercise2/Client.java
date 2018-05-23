@@ -17,6 +17,12 @@ public class Client extends JFrame {
     private int port;
     private DatagramSocket socket;
 
+    public static void main(String[] args)
+    {
+        Client client = new Client();
+        client.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
     // constructs the ui and handles the events that happen when pressing the buttons
     public Client(){
         super("Client");
@@ -44,6 +50,8 @@ public class Client extends JFrame {
         disconnect = new JButton("Disconnect");
         disconnect.setBackground(new Color(215, 0, 0));
         disconnect.addActionListener(event -> {
+                serverIP = "";
+                port = 0;
                 socket.close();
                 disconnect.setEnabled(false);
                 send.setEnabled(false);
@@ -81,11 +89,5 @@ public class Client extends JFrame {
         catch(IOException e){
             JOptionPane.showMessageDialog(null, "I/O Exception occurred.");
         }
-    }
-
-    public static void main(String[] args)
-    {
-        Client client = new Client();
-        client.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }
