@@ -12,7 +12,8 @@ public class Garage<V extends Vehicle> extends LinkedList<V> {
 	public Garage(int garageCapacity) {
 		this.garageCapacity = garageCapacity;
 	}
-	
+
+	// add a vehicle to garage
 	public boolean add(V vehicle) {
 		try {
 			if(size() == garageCapacity) {
@@ -24,16 +25,12 @@ public class Garage<V extends Vehicle> extends LinkedList<V> {
 			return false;
 		}
 
-		ListIterator<V> listIterator = listIterator();
-		while (listIterator.hasNext()) {
-			int index = listIterator.nextIndex();
-			V existingVehicle = listIterator.next();
+		for (V existingVehicle : this) {
 			try {
 				if (existingVehicle.getLicense().equals(vehicle.getLicense())) {
 					throw new VehicleAlreadyExistsException();
 				}
-			}
-			catch(VehicleAlreadyExistsException e) {
+			} catch (VehicleAlreadyExistsException e) {
 				System.out.println(e.getMessage());
 				return false;
 			}
@@ -42,7 +39,8 @@ public class Garage<V extends Vehicle> extends LinkedList<V> {
 		super.add(vehicle);
 		return true;
 	}
-	
+
+	// returns the first vehicle
 	public Vehicle work() {
 		try {
 			return super.remove();
@@ -52,6 +50,7 @@ public class Garage<V extends Vehicle> extends LinkedList<V> {
 		}
 	}
 
+	// removes the requested vehicle
 	public V remove(String license) {
 		ListIterator<V> listIterator = listIterator();
 		while (listIterator.hasNext()) {
@@ -64,20 +63,20 @@ public class Garage<V extends Vehicle> extends LinkedList<V> {
 		}
 		return null;
 	}
-	
+
+	// returns size of garage
 	public int size() {
 		return super.size();
 	}
 
+	// returns string representation of garage status
 	@Override
 	public String toString() {
-		String vehiclesInGarage = "";
-		ListIterator<V> listIterator = listIterator();
-		while (listIterator.hasNext()) {
-			V vehicle = listIterator.next();
-			vehiclesInGarage += vehicle.toString();
+		StringBuilder vehiclesInGarage = new StringBuilder();
+		for (V vehicle : this) {
+			vehiclesInGarage.append(vehicle.toString());
 		}
-		return vehiclesInGarage;
+		return vehiclesInGarage.toString();
 	}
 	
 }

@@ -10,7 +10,7 @@ public class Worker implements Comparable<Worker>{
 	public Worker() {
 		firstName = "";
 		lastName = "";
-		id = new Long(0);
+		id = 0L;
 		yearOfBirth = 0;
 	}
 	
@@ -21,10 +21,12 @@ public class Worker implements Comparable<Worker>{
 		this.yearOfBirth = yearOfBirth;
 	}
 
+	// returns id
 	public Long getId() {
 		return id;
 	}
 
+	// compares between workers according to id
 	@Override
 	public int compareTo(Worker worker) {
 		if(id < worker.getId()) {

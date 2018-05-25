@@ -14,38 +14,47 @@ public abstract class Vehicle {
 		this.comment = comment;
 	}
 
+	// returns license
 	public String getLicense() {
 		return license;
 	}
 
+	// sets license
 	public void setVehicleNumber(String license) {
 		this.license = license;
 	}
 
+	// returns vehicle type
 	public String getVehicleType() {
 		return vehicleType;
 	}
 
+	// sets vehicle type
 	public void setVehicleType(String vehicleType) {
 		this.vehicleType = vehicleType;
 	}
 
+	// returns manufacture year
 	public int getManufactureYear() {
 		return manufactureYear;
 	}
 
+	// sets manufacture year
 	public void setManufactureYear(int manufactureYear) {
 		this.manufactureYear = manufactureYear;
 	}
 
+	// returns comment
 	public String getComment() {
 		return comment;
 	}
 
+	// sets comment
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
 
+	// returns string representation of vehicle
 	@Override
 	public String toString() {
 		if(this instanceof PrivateVehicle) {
@@ -56,7 +65,7 @@ public abstract class Vehicle {
 		}
 		return "Vehicle license: " + license + ", Type: " + vehicleType + ", Manufacture Year: " + manufactureYear + ", Comment: " + comment + ".\n";
 	}
-	
+
 	public static class PrivateVehicle extends Vehicle {
 
 		private String ownerName;
@@ -66,10 +75,12 @@ public abstract class Vehicle {
 			this.ownerName = ownerName;
 		}
 
+		// returns owner name
 		public String getOwnerName() {
 			return ownerName;
 		}
 
+		// sets owner name
 		public void setOwnerName(String ownerName) {
 			this.ownerName = ownerName;
 		}
@@ -86,19 +97,23 @@ public abstract class Vehicle {
 			this.companyName = companyName;
 			this.workerName = workerName;
 		}
-		
+
+		// returns company name
 		public String getCompanyName() {
 			return companyName;
 		}
-		
+
+		// sets company name
 		public void setCompanyName(String companyName) {
 			this.companyName = companyName;
 		}
-		
+
+		// returns worker name
 		public String getWorkerName() {
 			return workerName;
 		}
-		
+
+		// sets worker name
 		public void setWorkerName(String workerName) {
 			this.workerName = workerName;
 		}

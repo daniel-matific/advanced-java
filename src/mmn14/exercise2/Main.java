@@ -5,6 +5,7 @@ import mmn14.exercise2.Vehicle.PrivateVehicle;
 
 public class Main {
 
+	// create vehicles, fill the garage, work on vehicles
 	public static void main(String[] args) {
 		PrivateVehicle vehicle1 = new PrivateVehicle("1", "Mercedes", 2015, "No comment", "Bob");
 		PrivateVehicle vehicle1Duplicate = new PrivateVehicle("1", "Mercedes", 2015, "No comment", "Bob");
