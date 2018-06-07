@@ -1,6 +1,6 @@
 package mmn13.exercise1;
 
-import java.awt.Color;
+import java.awt.*;
 
 public enum MyColor {
 

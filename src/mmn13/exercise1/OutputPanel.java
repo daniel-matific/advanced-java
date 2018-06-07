@@ -1,9 +1,8 @@
 package mmn13.exercise1;
 
-import java.awt.FlowLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
-
-import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class OutputPanel extends JPanel {

@@ -1,9 +1,8 @@
 package mmn13.exercise2;
 
-import java.awt.Dimension;
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
-
-import javax.swing.JFrame;
 
 public class Main {
 

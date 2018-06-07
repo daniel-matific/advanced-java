@@ -1,6 +1,6 @@
 package mmn12.exercise1;
 
-import java.awt.Color;
+import java.awt.*;
 import java.lang.reflect.Field;
 
 public abstract class Animal {

@@ -1,8 +1,7 @@
 package mmn11.exercise1;
 
+import javax.swing.*;
 import java.util.Random;
-import java.lang.Character;
-import javax.swing.JOptionPane;
 
 public class BulPgia {
 	private String[] numberToGuess;

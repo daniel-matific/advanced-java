@@ -1,12 +1,7 @@
 package mmn13.exercise2;
 
+import javax.swing.*;
 import java.util.ArrayList;
-
-import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class MenuPage extends JPanel {

@@ -1,6 +1,6 @@
 package mmn12.exercise1;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class Dog extends Mammal {
 	

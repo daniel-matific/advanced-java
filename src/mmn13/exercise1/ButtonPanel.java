@@ -1,12 +1,7 @@
 package mmn13.exercise1;
 
-import java.awt.GridLayout;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
+import javax.swing.*;
+import java.awt.*;
 
 @SuppressWarnings("serial")
 public class ButtonPanel extends JPanel {

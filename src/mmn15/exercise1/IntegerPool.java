@@ -14,10 +14,6 @@ public class IntegerPool<I> extends LinkedList<Integer> {
     private Condition condition;
 	private static final int MAX_NUMBER = 100;
 	private static final SecureRandom randomNumbers = new SecureRandom();
-
-	public IntegerPool() {
-		super();
-	}
 	
 	public IntegerPool(int n, int m) {
         maxThreads = m;
@@ -25,7 +21,7 @@ public class IntegerPool<I> extends LinkedList<Integer> {
         lock = new ReentrantLock();
         condition = lock.newCondition();
 		for(; n > 0; n--) {
-			add(new Integer(randomNumbers.nextInt(MAX_NUMBER+1)));
+			add(randomNumbers.nextInt(MAX_NUMBER + 1));
 		}
 	}
 	

@@ -1,10 +1,8 @@
 package mmn12.exercise2;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import javax.swing.*;
+import java.awt.*;
 import java.security.SecureRandom;
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class Zone extends JPanel {

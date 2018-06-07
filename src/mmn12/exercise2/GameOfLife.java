@@ -1,10 +1,7 @@
 package mmn12.exercise2;
 
-import java.awt.Container;
-import java.awt.GridLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 @SuppressWarnings("serial")
 public class GameOfLife extends JFrame {

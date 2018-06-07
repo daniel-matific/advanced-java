@@ -1,9 +1,7 @@
 package mmn13.exercise1;
 
-import java.awt.Color;
-import java.awt.Dimension;
-
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 @SuppressWarnings("serial")
 public abstract class Shape extends JPanel {

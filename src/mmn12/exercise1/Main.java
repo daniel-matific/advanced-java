@@ -1,7 +1,7 @@
 package mmn12.exercise1;
 
+import java.awt.*;
 import java.util.ArrayList;
-import java.awt.Color;
 
 public class Main {
 

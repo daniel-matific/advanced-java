@@ -1,8 +1,7 @@
 package mmn11.exercise2;
 
+import javax.swing.*;
 import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
 
 public class Main {
 
