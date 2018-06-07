@@ -28,7 +28,7 @@ public class GameOfLife extends JPanel {
     }
     
     // adds the matrix of Zones to the JFrame
-    public void visualizeMatrix(Zone[][] matrix, int size) {
+    private void visualizeMatrix(Zone[][] matrix, int size) {
         
         JPanel gridPanel = new JPanel();
         gridPanel.setLayout(new GridLayout(size, size));
@@ -40,7 +40,7 @@ public class GameOfLife extends JPanel {
         add(gridPanel);
     }
     
-    // calls a function to compute the next state of each Zone and then updates all Zones
+    // function creates a thread to update each panel
     public void nextGeneration() {
         middleSignal = new CountDownLatch(size*size);
         doneSignal = new CountDownLatch(size*size);

@@ -12,7 +12,8 @@ public class Game extends JFrame implements ActionListener {
 	private GameOfLife gameOfLife;
 	private JButton restart;
 	private int size;
-	
+
+	// constructs the game of life and gui
 	public Game(int size) {
 		setTitle("Game Of Life");
 		mainPanel = new JPanel(new BorderLayout());
@@ -21,14 +22,15 @@ public class Game extends JFrame implements ActionListener {
         this.size = size;
         gameOfLife = new GameOfLife(size);
         setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainPanel.add(gameOfLife, BorderLayout.CENTER);
         mainPanel.add(restart, BorderLayout.SOUTH);
         add(mainPanel);
         pack();
         setVisible(true);
 	}
-	
+
+	// restarts the game upon clicking the restart button
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == restart) {
@@ -41,7 +43,8 @@ public class Game extends JFrame implements ActionListener {
 			repaint();
 		}
 	}
-	
+
+	// returns GameOfLife
 	public GameOfLife getGameOfLife() {
 		return gameOfLife;
 	}

@@ -10,7 +10,8 @@ private final boolean LIFE = true;
 private final boolean DEATH = false;
 private CountDownLatch middleSignal;
 private CountDownLatch doneSignal;
-	
+
+	// constructs the runnable next state generator
 	public GenerateNextState(int row, int column, GameOfLife gameOfLife, CountDownLatch middleSignal, CountDownLatch doneSignal) {
 		this.row = row;
 		this.column = column;
@@ -19,6 +20,7 @@ private CountDownLatch doneSignal;
 		this.doneSignal = doneSignal;
 	}
 
+	// all threads of panels generate next state and then all of them update the panels
 	@Override
 	public void run() {
 
@@ -42,7 +44,7 @@ private CountDownLatch doneSignal;
 	
     
     // computes the next state for a given Zone position
-    public void generateNextState(int row, int column) {
+    private void generateNextState(int row, int column) {
     	int livingNeighbours = 0;
     	if (row > 0 && column > 0 && gameOfLife.matrix[row-1][column-1].getCurrentState() == LIFE) {
     		livingNeighbours++;

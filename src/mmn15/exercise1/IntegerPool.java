@@ -14,7 +14,8 @@ public class IntegerPool<I> extends LinkedList<Integer> {
     private Condition condition;
 	private static final int MAX_NUMBER = 100;
 	private static final SecureRandom randomNumbers = new SecureRandom();
-	
+
+	// constructor of integer pool, n numbers, m threads
 	public IntegerPool(int n, int m) {
         maxThreads = m;
         activeThreads = 0;
@@ -24,7 +25,8 @@ public class IntegerPool<I> extends LinkedList<Integer> {
 			add(randomNumbers.nextInt(MAX_NUMBER + 1));
 		}
 	}
-	
+
+	// make threads wait in order to keep max number of threads running at once
     public void waitForThread()
     {
         lock.lock();
@@ -36,7 +38,8 @@ public class IntegerPool<I> extends LinkedList<Integer> {
         activeThreads++;
         lock.unlock();
     }
-    
+
+    // signal to all waiting threads that a thread has finished
     public void finished()
     {
     	lock.lock();
@@ -44,7 +47,8 @@ public class IntegerPool<I> extends LinkedList<Integer> {
         condition.signalAll();
         lock.unlock();
     }
-	
+
+    // makes thread wait as long as threads are still running
     public void waitForAll()
     {
     	lock.lock();
@@ -56,7 +60,8 @@ public class IntegerPool<I> extends LinkedList<Integer> {
         }
         lock.unlock();
     }
-    
+
+    // calculates the sum of integer pool without multithreading for test purposes
     public int testSum() {
     	int count = 0;
     	for(int i = 0; i < size(); i++) {
