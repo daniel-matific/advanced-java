@@ -11,7 +11,6 @@ import java.net.SocketException;
 public class Client extends JFrame {
 
     private JButton connect, disconnect, send;
-    private String[] cities = {"Paris","London","Berlin","Rome"};
     private JComboBox<String> citiesMenu;
     private String serverIP;
     private int port;
@@ -66,6 +65,7 @@ public class Client extends JFrame {
         send = new JButton("Send");
         send.addActionListener(event -> startRunning());
         send.setEnabled(false);
+        String[] cities = {"Paris", "London", "Berlin", "Rome"};
         citiesMenu = new JComboBox<>(cities);
         leftPanel.add(citiesMenu);
         leftPanel.add(send);
@@ -74,6 +74,7 @@ public class Client extends JFrame {
         setVisible(true);
     }
 
+    // handles creation of socket and the data coming from the server
     private void startRunning(){
         try {
             byte[] buffer = new byte[256];

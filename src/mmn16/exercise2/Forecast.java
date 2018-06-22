@@ -15,6 +15,7 @@ public class Forecast {
         this.rainStatus = rainStatus;
     }
 
+    // returns the city
     public String getCity() {
         return city;
     }

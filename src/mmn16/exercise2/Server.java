@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class Server extends JFrame {
 
     private ArrayList<Forecast> forecastDatabase;
-    private JButton refresh;
     private File forecast = new File("forecast.txt");
 
     public static void main(String[] args)
@@ -39,7 +38,7 @@ public class Server extends JFrame {
     public Server() {
         super("Server");
         convertFileToForecast(forecast);
-        refresh = new JButton("Refresh Data");
+        JButton refresh = new JButton("Refresh Data");
         refresh.addActionListener(event -> convertFileToForecast(forecast));
         add(refresh);
         setSize(200, 150);
@@ -49,20 +48,14 @@ public class Server extends JFrame {
     private void convertFileToForecast(File forecastFile) {
         forecastDatabase = new ArrayList<>();
         String[] splitInput;
-        Scanner input = null;
-        try {
-            input = new Scanner(forecastFile);
-            while(input.hasNext()) {
+        try (Scanner input = new Scanner(forecastFile)) {
+            while (input.hasNext()) {
                 splitInput = input.nextLine().split("/");
                 Forecast forecast = new Forecast(splitInput[0], splitInput[1], Integer.parseInt(splitInput[2]), splitInput[3], splitInput[4]);
                 forecastDatabase.add(forecast);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Forecast file not found!");
-        } finally {
-            if(input != null) {
-                input.close();
-            }
         }
     }
 
